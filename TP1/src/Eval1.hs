@@ -14,17 +14,18 @@ type State = M.Map Variable Int
 -- Estado nulo
 -- Completar la definición
 initState :: State
-initState = undefined
+initState = M.empty
 
 -- Busca el valor de una variable en un estado
 -- Completar la definición
 lookfor :: Variable -> State -> Int
-lookfor v s = undefined
+lookfor v s = M.lookup v s -- lookup en realidad devuelve Maybe, no Int. Ver eso 
 
 -- Cambia el valor de una variable en un estado
 -- Completar la definición
 update :: Variable -> Int -> State -> State
-update = undefined
+update = \v -> \i -> \m -> M.insert v i m   --  -> ???
+update v i m = M.insert v i m               -- /
 
 -- Evalua un programa en el estado nulo
 eval :: Comm -> State
