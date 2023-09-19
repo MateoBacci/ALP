@@ -1,0 +1,879 @@
+
+==================== FINAL INTERFACE ====================
+2023-09-19 20:20:31.524124562 UTC
+
+interface TP1-0.1.0.0-4KwBlKAgtBNFj4YFqhKSAq:AST 8064
+  interface hash: aa862b785aaa48437df355d9325bc33e
+  ABI hash: 1c3e2d5220775d9df38e5e3ac87a861e
+  export-list hash: 38ad0293da0298a278760f1e58807521
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: b464be464d1bf7181b90b9e208309b5b
+  opt_hash: 6faf2de08de32d19db9870899d88e59a
+  hpc_hash: 93b885adfe0da089cdf634904fd59f71
+  plugin_hash: ad164012d6b1e14942349d58b1132007
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  AST.IfThen
+  AST.Comm{AST.IfThenElse AST.Let AST.Repeat AST.Seq AST.Skip}
+  AST.Error{AST.DivByZero AST.UndefVar}
+  AST.Exp{AST.And AST.BFalse AST.BTrue AST.Const AST.Div AST.EAssgn AST.ESeq AST.Eq AST.Gt AST.Lt AST.Minus AST.NEq AST.Not AST.Or AST.Plus AST.Times AST.UMinus AST.Var}
+  AST.Variable
+module dependencies:
+package dependencies: base-4.12.0.0* ghc-prim-0.5.3
+                      integer-gmp-1.0.2.0
+orphans: base-4.12.0.0:GHC.Float base-4.12.0.0:GHC.Base
+family instance modules: base-4.12.0.0:Control.Applicative
+                         base-4.12.0.0:Data.Functor.Const
+                         base-4.12.0.0:Data.Functor.Identity base-4.12.0.0:Data.Monoid
+                         base-4.12.0.0:Data.Semigroup.Internal base-4.12.0.0:GHC.Generics
+                         base-4.12.0.0:GHC.IO.Exception
+import  -/  base-4.12.0.0:GHC.Base c00b75f0b052d05c55ba6a4dd1c63b26
+import  -/  base-4.12.0.0:GHC.Show 838a5d039379d82d9626aae53dfce276
+import  -/  base-4.12.0.0:Prelude 3c779dfd6448bdd8e234c336802c2acb
+import  -/  ghc-prim-0.5.3:GHC.Classes 0f6fd7d7db53fc48f6e1f01803cc6c9d
+import  -/  integer-gmp-1.0.2.0:GHC.Integer.Type 6d87087aea24143d2650f78480d954a3
+4c00f107bbd12a9c1889d65362dd8e6b
+  $bIfThen :: AST.Exp GHC.Types.Bool -> AST.Comm -> AST.Comm
+  {- Arity: 2, HasNoCafRefs, Strictness: <L,U><L,U>m4,
+     Unfolding: InlineRule (2, True, False)
+                (\ (b :: AST.Exp GHC.Types.Bool) (c :: AST.Comm) ->
+                 AST.IfThenElse b c AST.Skip) -}
+126c885566b242ad0dfecc2eddbe0ccd
+  $fEqComm :: GHC.Classes.Eq AST.Comm
+  DFunId
+  {- HasNoCafRefs, Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun:. @ AST.Comm AST.$fEqComm_$c== AST.$fEqComm_$c/= -}
+126c885566b242ad0dfecc2eddbe0ccd
+  $fEqComm_$c/= :: AST.Comm -> AST.Comm -> GHC.Types.Bool
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U>,
+     Inline: (sat-args=2),
+     Unfolding: InlineRule (2, False, False)
+                (\ (x :: AST.Comm) (y :: AST.Comm) ->
+                 case AST.$fEqComm_$c== x y of wild {
+                   GHC.Types.False -> GHC.Types.True
+                   GHC.Types.True -> GHC.Types.False }) -}
+126c885566b242ad0dfecc2eddbe0ccd
+  $fEqComm_$c== :: AST.Comm -> AST.Comm -> GHC.Types.Bool
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U> -}
+98e716768c926b92aad74901112a1647
+  $fEqError :: GHC.Classes.Eq AST.Error
+  DFunId
+  {- HasNoCafRefs, Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun:.
+                  @ AST.Error AST.$fEqError_$c== AST.$fEqError_$c/= -}
+98e716768c926b92aad74901112a1647
+  $fEqError_$c/= :: AST.Error -> AST.Error -> GHC.Types.Bool
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U>,
+     Inline: (sat-args=2),
+     Unfolding: InlineRule (2, False, False)
+                (\ (x :: AST.Error) (y :: AST.Error) ->
+                 case x of wild {
+                   AST.DivByZero
+                   -> case y of wild1 {
+                        AST.DivByZero -> GHC.Types.False AST.UndefVar -> GHC.Types.True }
+                   AST.UndefVar
+                   -> case y of wild1 {
+                        AST.DivByZero -> GHC.Types.True
+                        AST.UndefVar -> GHC.Types.False } }) -}
+98e716768c926b92aad74901112a1647
+  $fEqError_$c== :: AST.Error -> AST.Error -> GHC.Types.Bool
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U>,
+     Unfolding: InlineRule (2, True, False)
+                (\ (ds :: AST.Error) (ds1 :: AST.Error) ->
+                 case ds of wild {
+                   AST.DivByZero
+                   -> case ds1 of wild1 {
+                        AST.DivByZero -> GHC.Types.True AST.UndefVar -> GHC.Types.False }
+                   AST.UndefVar
+                   -> case ds1 of wild1 {
+                        AST.DivByZero -> GHC.Types.False
+                        AST.UndefVar -> GHC.Types.True } }) -}
+eee51a3f4a06359722d7524717633529
+  $fEqExp :: GHC.Classes.Eq (AST.Exp a)
+  DFunId
+  {- HasNoCafRefs, Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun: @ a.
+                  @ (AST.Exp a) (AST.$fEqExp_$c== @ a) (AST.$fEqExp_$c/= @ a) -}
+eee51a3f4a06359722d7524717633529
+  $fEqExp_$c/= :: AST.Exp a -> AST.Exp a -> GHC.Types.Bool
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U>,
+     Inline: (sat-args=2),
+     Unfolding: InlineRule (2, False, False)
+                (\ @ a (x :: AST.Exp a) (y :: AST.Exp a) ->
+                 case AST.$fEqExp_$c== @ a x y of wild {
+                   GHC.Types.False -> GHC.Types.True
+                   GHC.Types.True -> GHC.Types.False }) -}
+eee51a3f4a06359722d7524717633529
+  $fEqExp_$c== :: AST.Exp a -> AST.Exp a -> GHC.Types.Bool
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U> -}
+126c885566b242ad0dfecc2eddbe0ccd
+  $fShowComm :: GHC.Show.Show AST.Comm
+  DFunId
+  {- Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun:.
+                  @ AST.Comm
+                  AST.$fShowComm_$cshowsPrec
+                  AST.$fShowComm_$cshow
+                  AST.$fShowComm_$cshowList -}
+126c885566b242ad0dfecc2eddbe0ccd
+  $fShowComm1 :: AST.Comm -> GHC.Show.ShowS
+  {- Arity: 2,
+     Unfolding: (AST.$fShowComm_$cshowsPrec AST.$fShowComm2) -}
+6de737f243586fd86cb19ae7fd980a69
+  $fShowComm2 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 0#) -}
+126c885566b242ad0dfecc2eddbe0ccd
+  $fShowComm_$cshow :: AST.Comm -> GHC.Base.String
+  {- Arity: 1, Strictness: <S,1*U>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (x :: AST.Comm) ->
+                 AST.$fShowComm_$cshowsPrec
+                   AST.$fShowComm2
+                   x
+                   (GHC.Types.[] @ GHC.Types.Char)) -}
+126c885566b242ad0dfecc2eddbe0ccd
+  $fShowComm_$cshowList :: [AST.Comm] -> GHC.Show.ShowS
+  {- Arity: 2, Strictness: <S,1*U><L,U>,
+     Unfolding: InlineRule (2, True, False)
+                (\ (ls :: [AST.Comm]) (s :: GHC.Base.String) ->
+                 GHC.Show.showList__ @ AST.Comm AST.$fShowComm1 ls s) -}
+126c885566b242ad0dfecc2eddbe0ccd
+  $fShowComm_$cshowsPrec ::
+    GHC.Types.Int -> AST.Comm -> GHC.Show.ShowS
+  {- Arity: 3, Strictness: <L,1*U(U)><S,1*U><L,U> -}
+98e716768c926b92aad74901112a1647
+  $fShowError :: GHC.Show.Show AST.Error
+  DFunId
+  {- Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun:.
+                  @ AST.Error
+                  AST.$fShowError_$cshowsPrec
+                  AST.$fShowError_$cshow
+                  AST.$fShowError_$cshowList -}
+98e716768c926b92aad74901112a1647
+  $fShowError1 :: AST.Error -> GHC.Show.ShowS
+  {- Arity: 2, Strictness: <S,1*U><L,1*U>,
+     Unfolding: InlineRule (2, True, False)
+                (\ (ds :: AST.Error) (eta :: GHC.Base.String) ->
+                 case ds of wild {
+                   AST.DivByZero
+                   -> GHC.Base.augment
+                        @ GHC.Types.Char
+                        (\ @ b
+                           (c :: GHC.Types.Char -> b -> b)[OneShot]
+                           (n :: b)[OneShot] ->
+                         GHC.Base.foldr @ GHC.Types.Char @ b c n AST.$fShowError4)
+                        eta
+                   AST.UndefVar
+                   -> GHC.Base.augment
+                        @ GHC.Types.Char
+                        (\ @ b
+                           (c :: GHC.Types.Char -> b -> b)[OneShot]
+                           (n :: b)[OneShot] ->
+                         GHC.Base.foldr @ GHC.Types.Char @ b c n AST.$fShowError2)
+                        eta }) -}
+c2c3c7f0c420eb55fa27a67e0e0d5ee4
+  $fShowError2 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# AST.$fShowError3) -}
+c944bc6374b957f385cde15a2b7d0bda
+  $fShowError3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("UndefVar"#) -}
+af2ae83a34c50ca41f5624852cbb2d66
+  $fShowError4 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# AST.$fShowError5) -}
+f8bc86f0070e1d22f08a0d2ce758ec82
+  $fShowError5 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("DivByZero"#) -}
+98e716768c926b92aad74901112a1647
+  $fShowError_$cshow :: AST.Error -> GHC.Base.String
+  {- Arity: 1, Strictness: <S,1*U>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (x :: AST.Error) ->
+                 case x of wild {
+                   AST.DivByZero -> AST.$fShowError4
+                   AST.UndefVar -> AST.$fShowError2 }) -}
+98e716768c926b92aad74901112a1647
+  $fShowError_$cshowList :: [AST.Error] -> GHC.Show.ShowS
+  {- Arity: 2, Strictness: <S,1*U><L,U>,
+     Unfolding: InlineRule (2, True, False)
+                (\ (ls :: [AST.Error]) (s :: GHC.Base.String) ->
+                 GHC.Show.showList__ @ AST.Error AST.$fShowError1 ls s) -}
+98e716768c926b92aad74901112a1647
+  $fShowError_$cshowsPrec ::
+    GHC.Types.Int -> AST.Error -> GHC.Show.ShowS
+  {- Arity: 3, Strictness: <L,A><S,1*U><L,1*U>,
+     Unfolding: InlineRule (3, True, False)
+                (\ (ds :: GHC.Types.Int)
+                   (ds1 :: AST.Error)
+                   (eta :: GHC.Base.String) ->
+                 case ds1 of wild {
+                   AST.DivByZero
+                   -> GHC.Base.augment
+                        @ GHC.Types.Char
+                        (\ @ b
+                           (c :: GHC.Types.Char -> b -> b)[OneShot]
+                           (n :: b)[OneShot] ->
+                         GHC.Base.foldr @ GHC.Types.Char @ b c n AST.$fShowError4)
+                        eta
+                   AST.UndefVar
+                   -> GHC.Base.augment
+                        @ GHC.Types.Char
+                        (\ @ b
+                           (c :: GHC.Types.Char -> b -> b)[OneShot]
+                           (n :: b)[OneShot] ->
+                         GHC.Base.foldr @ GHC.Types.Char @ b c n AST.$fShowError2)
+                        eta }) -}
+eee51a3f4a06359722d7524717633529
+  $fShowExp :: GHC.Show.Show (AST.Exp a)
+  DFunId
+  {- Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun: @ a.
+                  @ (AST.Exp a)
+                  (AST.$fShowExp_$cshowsPrec @ a)
+                  (AST.$fShowExp_$cshow @ a)
+                  (AST.$fShowExp_$cshowList @ a) -}
+eee51a3f4a06359722d7524717633529
+  $fShowExp1 :: AST.Exp a -> GHC.Show.ShowS
+  {- Arity: 2,
+     Unfolding: (\ @ a ->
+                 AST.$fShowExp_$cshowsPrec @ a AST.$fShowComm2) -}
+eee51a3f4a06359722d7524717633529
+  $fShowExp_$cshow :: AST.Exp a -> GHC.Base.String
+  {- Arity: 1, Strictness: <S,1*U>,
+     Unfolding: InlineRule (1, True, False)
+                (\ @ a (x :: AST.Exp a) ->
+                 AST.$fShowExp_$cshowsPrec
+                   @ a
+                   AST.$fShowComm2
+                   x
+                   (GHC.Types.[] @ GHC.Types.Char)) -}
+eee51a3f4a06359722d7524717633529
+  $fShowExp_$cshowList :: [AST.Exp a] -> GHC.Show.ShowS
+  {- Arity: 2, Strictness: <S,1*U><L,U>,
+     Unfolding: InlineRule (2, True, False)
+                (\ @ a (ls :: [AST.Exp a]) (s :: GHC.Base.String) ->
+                 GHC.Show.showList__ @ (AST.Exp a) (AST.$fShowExp1 @ a) ls s) -}
+eee51a3f4a06359722d7524717633529
+  $fShowExp_$cshowsPrec ::
+    GHC.Types.Int -> AST.Exp a -> GHC.Show.ShowS
+  {- Arity: 3, Strictness: <L,1*U(U)><S,1*U><L,U> -}
+57706b27475b35713c9591a3ca9a0729
+  $mIfThen ::
+    AST.Comm
+    -> (AST.Exp GHC.Types.Bool -> AST.Comm -> r)
+    -> (GHC.Prim.Void# -> r)
+    -> r
+  {- Arity: 3, HasNoCafRefs,
+     Strictness: <S,1*U><L,1*C1(C1(U))><L,1*C1(U)>,
+     Unfolding: (\ @ rep :: GHC.Types.RuntimeRep
+                   @ r :: TYPE rep
+                   (scrut :: AST.Comm)
+                   (cont :: AST.Exp GHC.Types.Bool -> AST.Comm -> r)
+                   (fail :: GHC.Prim.Void# -> r) ->
+                 case scrut of wild {
+                   DEFAULT -> fail GHC.Prim.void#
+                   AST.IfThenElse b c ds
+                   -> case ds of wild1 {
+                        DEFAULT -> fail GHC.Prim.void# AST.Skip -> cont b c } }) -}
+d89f1f9bf3003d2d9f9103087b20484e
+  $tc'And :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   9415059063056588308##
+                   10901983788849969987##
+                   AST.$trModule
+                   AST.$tc'And2
+                   0#
+                   AST.$tc'And1) -}
+87facb364d06f1d625e655cec76df37f
+  $tc'And1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+b6a9836915faa974187522a3d80ad119
+  $tc'And2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'And3) -}
+8d4afb6dea0659538a1ab84032a98b2a
+  $tc'And3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'And"#) -}
+1aa8009f5195b03752b256b3110d5705
+  $tc'BFalse :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   10029368729246789586##
+                   13001640688354518046##
+                   AST.$trModule
+                   AST.$tc'BFalse2
+                   0#
+                   AST.$tc'BFalse1) -}
+f4ad38d39886bfcbe63334eed18e5fd8
+  $tc'BFalse1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m1, Inline: [~] -}
+83709ecef122d24cb14beda4459022c0
+  $tc'BFalse2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'BFalse3) -}
+bf3da3a7644e1b8e4f35a4562c6d65a5
+  $tc'BFalse3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'BFalse"#) -}
+7d23211670546b90a39d5ff983227ce9
+  $tc'BTrue :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   5155758188245436765##
+                   5763029842075198260##
+                   AST.$trModule
+                   AST.$tc'BTrue1
+                   0#
+                   AST.$tc'BFalse1) -}
+dc74144f609a74653bff12a04eb066e7
+  $tc'BTrue1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'BTrue2) -}
+255e89a84e6c3e615c036f1393b6fea1
+  $tc'BTrue2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'BTrue"#) -}
+7720dc399fe14934664c0ad80fd78d27
+  $tc'Const :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   6681489030205078875##
+                   17377432847758697097##
+                   AST.$trModule
+                   AST.$tc'Const2
+                   0#
+                   AST.$tc'Const1) -}
+67ec7b45fd7a3663f053c872f07f80b2
+  $tc'Const1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+7a7472fbe78dea8faf15c618eec9eecf
+  $tc'Const2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Const3) -}
+d79734182ebd82a876be73497debeb2c
+  $tc'Const3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Const"#) -}
+b1704b0007080b02e8b277f406c34ff5
+  $tc'Div :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   14825546922066051959##
+                   8606671922202341802##
+                   AST.$trModule
+                   AST.$tc'Div2
+                   0#
+                   AST.$tc'Div1) -}
+9109d043990df0c3aa731062566f4e91
+  $tc'Div1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+c1110b69f13484d8de5ecaf5dd2c8011
+  $tc'Div2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Div3) -}
+297cbcbf7aaf5dfda11cbaf82d50feac
+  $tc'Div3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Div"#) -}
+1bdea649d26c0f2b95d50910d8e2e913
+  $tc'DivByZero :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   4128199659073710151##
+                   10804290647069647422##
+                   AST.$trModule
+                   AST.$tc'DivByZero2
+                   0#
+                   AST.$tc'DivByZero1) -}
+741bed3f90a2f34b034c74f233d57533
+  $tc'DivByZero1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m1, Inline: [~] -}
+70ebb697cf6b9d24905cf14e11846c26
+  $tc'DivByZero2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'DivByZero3) -}
+ddea3c6d0f60aaeac17de0e41548ff4e
+  $tc'DivByZero3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'DivByZero"#) -}
+edd9e7669c30dd37b422c4278e318493
+  $tc'EAssgn :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   7353249724161507052##
+                   10547430261291651199##
+                   AST.$trModule
+                   AST.$tc'EAssgn2
+                   0#
+                   AST.$tc'EAssgn1) -}
+3cab447b11713e07cbec5b2d9d80b6fb
+  $tc'EAssgn1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+130f626353fe8d0cadf47e3718c90dbc
+  $tc'EAssgn2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'EAssgn3) -}
+23765b092b1ea1fd7219d116cccd47fc
+  $tc'EAssgn3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'EAssgn"#) -}
+da7127cd73f7b7c3cffb002fe029a0b3
+  $tc'ESeq :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   7016277296304205083##
+                   17208355720709906956##
+                   AST.$trModule
+                   AST.$tc'ESeq1
+                   0#
+                   AST.$tc'Div1) -}
+c758d5f6529c3bed1915c01187c33bcf
+  $tc'ESeq1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'ESeq2) -}
+8c811e33e91270e51489b70c32a810b9
+  $tc'ESeq2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'ESeq"#) -}
+df10d8ec9c048d65a2d35e42a4081052
+  $tc'Eq :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   13528653914905739810##
+                   5946185663922493091##
+                   AST.$trModule
+                   AST.$tc'Eq2
+                   0#
+                   AST.$tc'Eq1) -}
+9cd6f11b4f82bf84690c66b2649a9c53
+  $tc'Eq1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+ac7dfaa1f8743754148dba260c55cdeb
+  $tc'Eq2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Eq3) -}
+e95ea1480c114ebd14158852b5daaacc
+  $tc'Eq3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Eq"#) -}
+27c88f532e26cafc8a883508a8ec5c2c
+  $tc'Gt :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   15732866868427170976##
+                   543867879046329346##
+                   AST.$trModule
+                   AST.$tc'Gt1
+                   0#
+                   AST.$tc'Eq1) -}
+8987bf9f8d698f16547bffde845c527f
+  $tc'Gt1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Gt2) -}
+34c8fbbac6bcad5a03ec2854ffba3ac0
+  $tc'Gt2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Gt"#) -}
+b0c547d76a903495609d287b694023f5
+  $tc'IfThenElse :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   5013921955321386691##
+                   9043385124807880132##
+                   AST.$trModule
+                   AST.$tc'IfThenElse2
+                   0#
+                   AST.$tc'IfThenElse1) -}
+8a5f3b9b29337684d71469982dc3dced
+  $tc'IfThenElse1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+41ef7d4d944567b744058c5999959378
+  $tc'IfThenElse2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'IfThenElse3) -}
+44caa2bd4aa23565f8e40d74523e81c4
+  $tc'IfThenElse3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'IfThenElse"#) -}
+dc4d6cf41bdb8e6274e419e94b08fdcc
+  $tc'Let :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   3419838476223488509##
+                   11841522151583906608##
+                   AST.$trModule
+                   AST.$tc'Let2
+                   0#
+                   AST.$tc'Let1) -}
+5ddcf122648d6c01cc33ae0ef7ac1e42
+  $tc'Let1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+6cd73b0939996a35bafdab5b8e8afc3b
+  $tc'Let2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Let3) -}
+35c57b449a3b46d29e1ea33f08353b66
+  $tc'Let3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Let"#) -}
+321232f564c045af2509c83d4f7045df
+  $tc'Lt :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   14433228954546014738##
+                   7409186343614322397##
+                   AST.$trModule
+                   AST.$tc'Lt1
+                   0#
+                   AST.$tc'Eq1) -}
+6543ed5f890f57f18667a6dac413435a
+  $tc'Lt1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Lt2) -}
+43041f2a820fff6d2cdb541eb34c356e
+  $tc'Lt2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Lt"#) -}
+ba5282647681e7eefdb43564c884e3ac
+  $tc'Minus :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   18173759881047352602##
+                   6348830526471304186##
+                   AST.$trModule
+                   AST.$tc'Minus1
+                   0#
+                   AST.$tc'Div1) -}
+60eaa9312e2c7ec5503f2e112a407998
+  $tc'Minus1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Minus2) -}
+2c27fa17e3bec4a63c86d38945a3ea9b
+  $tc'Minus2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Minus"#) -}
+743f7f6714653d514d78433170302fe4
+  $tc'NEq :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   10185242333727386296##
+                   4955479505248216295##
+                   AST.$trModule
+                   AST.$tc'NEq1
+                   0#
+                   AST.$tc'Eq1) -}
+d571f83e1ecf58dcf2765a247c7f403b
+  $tc'NEq1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'NEq2) -}
+c398768b0ff95a1100e7b3e5ba10841d
+  $tc'NEq2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'NEq"#) -}
+5141e8474c25fa73b8030ff7c556e11e
+  $tc'Not :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   7724467370877373642##
+                   11544716301044475192##
+                   AST.$trModule
+                   AST.$tc'Not2
+                   0#
+                   AST.$tc'Not1) -}
+d95fccd38a96d59439b2a884277b0804
+  $tc'Not1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+f71e660a944233204caec95e875cfb5d
+  $tc'Not2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Not3) -}
+5ea872761260e71a337359b90f78687e
+  $tc'Not3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Not"#) -}
+506429a160c0ea9b93446ce75d31b7c4
+  $tc'Or :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   9977895106266971062##
+                   16625469763226364213##
+                   AST.$trModule
+                   AST.$tc'Or1
+                   0#
+                   AST.$tc'And1) -}
+73a167a3c916506987c95211b28a2e39
+  $tc'Or1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Or2) -}
+2b123499a325a4fbd2084419556a8548
+  $tc'Or2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Or"#) -}
+8559571fdc207dfda7e66284801563a8
+  $tc'Plus :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   17547077952929760993##
+                   3199999696299469613##
+                   AST.$trModule
+                   AST.$tc'Plus1
+                   0#
+                   AST.$tc'Div1) -}
+83b4823d3cbf80ff763077fa134a7e1e
+  $tc'Plus1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Plus2) -}
+128981168e793c49d72af6407e7cc643
+  $tc'Plus2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Plus"#) -}
+1895a5f0c86209867f0c7a622a8fe851
+  $tc'Repeat :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   16414815481864022645##
+                   13432751797202305470##
+                   AST.$trModule
+                   AST.$tc'Repeat2
+                   0#
+                   AST.$tc'Repeat1) -}
+b717cf44dcb04b1c878822a219816a01
+  $tc'Repeat1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+707b6a1733155c4cb81ef1ddaddb3797
+  $tc'Repeat2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Repeat3) -}
+0137ec790336143644557fd2fd80bde0
+  $tc'Repeat3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Repeat"#) -}
+f1ec3745f1509e9504d34f5ded18a408
+  $tc'Seq :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   16642765164242509388##
+                   8184525709314292180##
+                   AST.$trModule
+                   AST.$tc'Seq2
+                   0#
+                   AST.$tc'Seq1) -}
+7f76fe3e5d4c3d64b304425206f75e97
+  $tc'Seq1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+26b919b08cc885f047c6408a6b5432af
+  $tc'Seq2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Seq3) -}
+5879cac07fb9b83c1b6c28a0fb9a359f
+  $tc'Seq3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Seq"#) -}
+69e5d414a59744c88aca0e243d686699
+  $tc'Skip :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   5467563769541929720##
+                   1076602135061180736##
+                   AST.$trModule
+                   AST.$tc'Skip2
+                   0#
+                   AST.$tc'Skip1) -}
+588dc92e534168c28929cc673d45628c
+  $tc'Skip1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m1, Inline: [~] -}
+3976d62aed1532e084accd843ff342b3
+  $tc'Skip2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Skip3) -}
+cbbaa8269679cbfce242b3f8dd9ac981
+  $tc'Skip3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Skip"#) -}
+eb8fb694eef9c5c91d4a2ab909372e4b
+  $tc'Times :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   3976641002205867199##
+                   17457248290450873099##
+                   AST.$trModule
+                   AST.$tc'Times1
+                   0#
+                   AST.$tc'Div1) -}
+83f050cdcbc8b2d9117c7d5c60b4d618
+  $tc'Times1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Times2) -}
+e8428c1adcf008ee084bc0aa1be63db1
+  $tc'Times2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Times"#) -}
+43c3b114ac173a59c45e8ee74caf5ad6
+  $tc'UMinus :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   17786325670230480285##
+                   11875819741998783414##
+                   AST.$trModule
+                   AST.$tc'UMinus2
+                   0#
+                   AST.$tc'UMinus1) -}
+ad5ad6e146ca2051c14096ead9cb0da2
+  $tc'UMinus1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+4c6a1abd7589aad2d40853d80c626363
+  $tc'UMinus2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'UMinus3) -}
+9692cf55106289c084e1c733521a6b01
+  $tc'UMinus3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'UMinus"#) -}
+ed6829aa88d52e4f4bb296ffc64f4cf5
+  $tc'UndefVar :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   17993560775591984234##
+                   7126073988131527701##
+                   AST.$trModule
+                   AST.$tc'UndefVar1
+                   0#
+                   AST.$tc'DivByZero1) -}
+2b93682879ce6f182d81283389025445
+  $tc'UndefVar1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'UndefVar2) -}
+b37186e057bb84ad8c3fcc0cc25b517c
+  $tc'UndefVar2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'UndefVar"#) -}
+fe1399da900cf2457cb4b58fb23a7fb8
+  $tc'Var :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   14222683700078276141##
+                   6569173700706274336##
+                   AST.$trModule
+                   AST.$tc'Var2
+                   0#
+                   AST.$tc'Var1) -}
+7864f862cae79642dbbac45142baf64f
+  $tc'Var1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+03bc7c3e9eb86fe3ba5b0ad51eecaae3
+  $tc'Var2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tc'Var3) -}
+577cb0d0a21371d3e084ecacbbe2eb83
+  $tc'Var3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Var"#) -}
+9cddf3370aa3cf9ffc6e241b6722c2a7
+  $tcComm :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   6794902973442210507##
+                   9043550600775774619##
+                   AST.$trModule
+                   AST.$tcComm1
+                   0#
+                   GHC.Types.krep$*) -}
+487021053e4df77004837113e3a7fbc2
+  $tcComm1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tcComm2) -}
+5dd3622e903d103f9a4f85d65043ac6e
+  $tcComm2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Comm"#) -}
+b812a09aab974c5ff06887f2746ed20f
+  $tcError :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   13702830647791426129##
+                   12859070415346385013##
+                   AST.$trModule
+                   AST.$tcError1
+                   0#
+                   GHC.Types.krep$*) -}
+bfdf6d12e501785dc7b5acf580977365
+  $tcError1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tcError2) -}
+8ad2949ce9a93f52a789f5370142362b
+  $tcError2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Error"#) -}
+43fb5a450e4dca21afbc73ec2d460328
+  $tcExp :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   5318916681319855468##
+                   16247556916780593653##
+                   AST.$trModule
+                   AST.$tcExp1
+                   0#
+                   GHC.Types.krep$*Arr*) -}
+33384458e3ca51df36b84a2b49ed294d
+  $tcExp1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$tcExp2) -}
+f8628938211d4fe2a8864bc5da67d389
+  $tcExp2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Exp"#) -}
+de4faa447dee75e187cd7325c846657d
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module AST.$trModule3 AST.$trModule1) -}
+5a8e59c3905129e79836d6bd648d0446
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$trModule2) -}
+f8dcc6fd4e69f7b94a55f993248596b2
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("AST"#) -}
+17ee5e2171da1d29e3aa3e523acf51d0
+  $trModule3 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS AST.$trModule4) -}
+20c975b29473235447247af30c258593
+  $trModule4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("TP1-0.1.0.0-4KwBlKAgtBNFj4YFqhKSAq"#) -}
+126c885566b242ad0dfecc2eddbe0ccd
+  data Comm
+    = Skip
+    | Let AST.Variable (AST.Exp GHC.Types.Int)
+    | Seq AST.Comm AST.Comm
+    | IfThenElse (AST.Exp GHC.Types.Bool) AST.Comm AST.Comm
+    | Repeat AST.Comm (AST.Exp GHC.Types.Bool)
+98e716768c926b92aad74901112a1647
+  data Error = DivByZero | UndefVar
+eee51a3f4a06359722d7524717633529
+  type role Exp nominal
+  data Exp a where
+    Const :: GHC.Integer.Type.Integer -> Exp GHC.Types.Int
+    Var :: AST.Variable -> Exp GHC.Types.Int
+    UMinus :: (AST.Exp GHC.Types.Int) -> Exp GHC.Types.Int
+    Plus :: (AST.Exp GHC.Types.Int) -> (AST.Exp GHC.Types.Int)
+            -> Exp GHC.Types.Int
+    Minus :: (AST.Exp GHC.Types.Int) -> (AST.Exp GHC.Types.Int)
+             -> Exp GHC.Types.Int
+    Times :: (AST.Exp GHC.Types.Int) -> (AST.Exp GHC.Types.Int)
+             -> Exp GHC.Types.Int
+    Div :: (AST.Exp GHC.Types.Int) -> (AST.Exp GHC.Types.Int)
+           -> Exp GHC.Types.Int
+    ESeq :: (AST.Exp GHC.Types.Int) -> (AST.Exp GHC.Types.Int)
+            -> Exp GHC.Types.Int
+    EAssgn :: AST.Variable -> (AST.Exp GHC.Types.Int)
+              -> Exp GHC.Types.Int
+    BTrue :: Exp GHC.Types.Bool
+    BFalse :: Exp GHC.Types.Bool
+    Lt :: (AST.Exp GHC.Types.Int) -> (AST.Exp GHC.Types.Int)
+          -> Exp GHC.Types.Bool
+    Gt :: (AST.Exp GHC.Types.Int) -> (AST.Exp GHC.Types.Int)
+          -> Exp GHC.Types.Bool
+    And :: (AST.Exp GHC.Types.Bool) -> (AST.Exp GHC.Types.Bool)
+           -> Exp GHC.Types.Bool
+    Or :: (AST.Exp GHC.Types.Bool) -> (AST.Exp GHC.Types.Bool)
+          -> Exp GHC.Types.Bool
+    Not :: (AST.Exp GHC.Types.Bool) -> Exp GHC.Types.Bool
+    Eq :: (AST.Exp GHC.Types.Int) -> (AST.Exp GHC.Types.Int)
+          -> Exp GHC.Types.Bool
+    NEq :: (AST.Exp GHC.Types.Int) -> (AST.Exp GHC.Types.Int)
+           -> Exp GHC.Types.Bool
+3b03ed25b141aa71ed953fa6dbb6bbfa
+  pattern AST.IfThen
+    :: AST.Exp GHC.Types.Bool -> AST.Comm -> AST.Comm
+a0cb1be5276c1724761d71b78d554b0c
+  type Variable = GHC.Base.String
+instance [safe] GHC.Classes.Eq [AST.Comm] = AST.$fEqComm
+instance [safe] GHC.Classes.Eq [AST.Error] = AST.$fEqError
+instance [safe] GHC.Classes.Eq [AST.Exp] = AST.$fEqExp
+instance [safe] GHC.Show.Show [AST.Comm] = AST.$fShowComm
+instance [safe] GHC.Show.Show [AST.Error] = AST.$fShowError
+instance [safe] GHC.Show.Show [AST.Exp] = AST.$fShowExp
+trusted: safe
+require own pkg trusted: False
+module header:
+  Nothing
+declaration docs:
+arg docs:
+
