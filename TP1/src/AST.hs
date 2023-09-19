@@ -4,9 +4,9 @@ module AST where
 type Variable = String
 
 -- Expresiones, aritmeticas y booleanas
-data Exp a where
+data Exp a where 
   -- Expresiones enteras
-  Const :: Int -> Exp Int
+  Const :: Integer -> Exp Int
   Var :: Variable -> Exp Int
   UMinus :: Exp Int -> Exp Int
   Plus :: Exp Int -> Exp Int -> Exp Int

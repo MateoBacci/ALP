@@ -1,0 +1,28 @@
+/home/seba/.stack/programs/x86_64-linux/ghc-tinfo6-8.8.3/lib/ghc-8.8.3/include/ghcversion.h:
+  hash: 40d1b759f485f1cd5a54141a6412691ac2b76930507289a16a6a7b89b045b4d2
+/home/seba/Escritorio/ALP TPS/ALP/TP1/.stack-work/dist/x86_64-linux-tinfo6/Cabal-3.0.1.0/build/autogen/Paths_TP1.hs:
+  hash: 1a1734826a48db5770d44a8ee0ad03be96f30b0ec494581cda03e1afb9d97ccb
+/home/seba/Escritorio/ALP TPS/ALP/TP1/.stack-work/dist/x86_64-linux-tinfo6/Cabal-3.0.1.0/build/autogen/cabal_macros.h:
+  hash: cce0e56c30ebc4cf342fa04045bc14e09c84b5d33964d795f4f985f418a45167
+/home/seba/Escritorio/ALP TPS/ALP/TP1/ChangeLog.md:
+  hash: d671c1d73cb79102b61920326ee7d43c81e9d4d770677cfaccbcfd6c725e41a9
+/home/seba/Escritorio/ALP TPS/ALP/TP1/README.md:
+  hash: d44a7e1a5475e494c597669c7a6b5f1ed6b4d421d64838bbc1cb45f31a95362b
+/home/seba/Escritorio/ALP TPS/ALP/TP1/TP1.cabal:
+  hash: 89601956bc239fd83e91e52c23f7809da278a2bb96aebac6c01e3ddc2e02677f
+/home/seba/Escritorio/ALP TPS/ALP/TP1/package.yaml:
+  hash: b417439568f6de8225c9fc59666bb0da24b57344610892b81a2c919028743663
+/home/seba/Escritorio/ALP TPS/ALP/TP1/src/AST.hs:
+  hash: e1b71f8cf9926cd1809b6bc9ecfd85778c1231aa1ccafe93396e94e59af958d5
+/home/seba/Escritorio/ALP TPS/ALP/TP1/src/Eval1.hs:
+  hash: ff4d2d8215ed52917479e8bad0751e33fba8f4b785e97161df4133154a1145b9
+/home/seba/Escritorio/ALP TPS/ALP/TP1/src/Eval2.hs:
+  hash: 7b4197370b6ed34ebe9b10146ba1f22ae0e9eac61c41b0a5442dcc8d77d6db7a
+/home/seba/Escritorio/ALP TPS/ALP/TP1/src/Eval3.hs:
+  hash: 36f7f1a7d71938793b2a7db7e31b58b86389d0216e42b5ab29ca138479bf9d9a
+/home/seba/Escritorio/ALP TPS/ALP/TP1/src/PPLis.hs:
+  hash: 4ac5dd45025e8e432bf757d14e0ea227d5670814bc3375d229b3c07881cb437a
+/home/seba/Escritorio/ALP TPS/ALP/TP1/src/Parser.hs:
+  hash: 642e02f0d6c1312c2914139545bf8c0c6dd50218e6d9ce17b0fd7bfc46389c1a
+/usr/include/stdc-predef.h:
+  hash: cb08cd5d4cc059a90833ac48a284d25016e8d56ded8ad4cd98d8ac59cc5053f3

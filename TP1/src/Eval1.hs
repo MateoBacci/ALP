@@ -16,7 +16,7 @@ initState :: State
 initState = M.empty
 
 -- Busca el valor de una variable en un estado
-lookfor :: Variable -> State -> Int
+lookfor :: Variable -> State -> Maybe Int
 lookfor v s = M.lookup v s -- lookup en realidad devuelve Maybe, no Int. Ver eso. 
 
 -- Cambia el valor de una variable en un estado

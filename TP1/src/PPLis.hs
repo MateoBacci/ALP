@@ -13,7 +13,7 @@ pVar :: Variable -> Doc
 pVar = text
 
 pExp :: Exp a -> Doc
-pExp (Const  i ) = int i
+pExp (Const  i ) = integer i
 pExp (Var    x ) = pVar x
 pExp (UMinus n ) = text "-" <+> pExp n
 pExp (Plus  a b) = pExp a <+> text "+" <+> pExp b
