@@ -48,6 +48,11 @@ lis = makeTokenParser
 --- Parser de expressiones enteras
 -----------------------------------
 -- parsea: term +- term +- ...
+
+intseq = chainl1 intassgn opSeq
+
+intassgn = chainl1 intexp opAssgn 
+
 intexp :: Parser (Exp Int) 
 intexp = chainl1 intterm opPlusMin
 
@@ -64,6 +69,8 @@ intfactor = do var <- identifier lis
          <|> do reservedOp lis "-"
                 f <- intfactor
                 return $ UMinus f
+         <|> do f <- parens lis intexp -- entre ()
+                return f
 
 opPlusMin = do reservedOp lis "+"
                return $ Plus
@@ -146,11 +153,11 @@ commterm = do v <- identifier lis
 opcomm = do reservedOp lis ";"
             return Seq
 
--- parsea: repeat {...} until (...)
+-- parsea: repeat ... until ...
 repeatUntil = do reserved lis "repeat"
-                 c <- braces lis comm -- entre {}
+                 c <- comm
                  reserved lis "until"
-                 b <- parens lis boolexp -- entre ()
+                 b <- boolexp
                  return $ Repeat c b
 
 -- parsea: if ... then {...} else {...}
