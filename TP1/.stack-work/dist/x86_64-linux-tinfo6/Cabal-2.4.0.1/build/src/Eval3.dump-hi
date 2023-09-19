@@ -1,0 +1,106 @@
+
+==================== FINAL INTERFACE ====================
+2023-09-19 21:16:25.339407305 UTC
+
+interface TP1-0.1.0.0-4KwBlKAgtBNFj4YFqhKSAq:Eval3 8064
+  interface hash: ad492acdd9fe965b28d77a899128f06d
+  ABI hash: e50ca1f874f43bc25a9943e028cd0c6d
+  export-list hash: f9e5486e545ea2b456f9809eb099bca1
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: b464be464d1bf7181b90b9e208309b5b
+  opt_hash: 6faf2de08de32d19db9870899d88e59a
+  hpc_hash: 93b885adfe0da089cdf634904fd59f71
+  plugin_hash: ad164012d6b1e14942349d58b1132007
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  Eval3.eval
+  Eval3.State
+module dependencies: AST
+package dependencies: array-0.5.3.0 base-4.12.0.0
+                      containers-0.6.0.1 deepseq-1.4.4.0 ghc-prim-0.5.3
+                      integer-gmp-1.0.2.0 strict-0.3.2
+orphans: base-4.12.0.0:GHC.Float base-4.12.0.0:GHC.Base
+family instance modules: base-4.12.0.0:Control.Applicative
+                         base-4.12.0.0:Data.Complex base-4.12.0.0:Data.Functor.Compose
+                         base-4.12.0.0:Data.Functor.Const
+                         base-4.12.0.0:Data.Functor.Identity
+                         base-4.12.0.0:Data.Functor.Product base-4.12.0.0:Data.Functor.Sum
+                         base-4.12.0.0:Data.Monoid base-4.12.0.0:Data.Semigroup
+                         base-4.12.0.0:Data.Semigroup.Internal base-4.12.0.0:Data.Version
+                         base-4.12.0.0:Data.Void base-4.12.0.0:GHC.Exts
+                         base-4.12.0.0:GHC.Generics base-4.12.0.0:GHC.IO.Exception
+                         containers-0.6.0.1:Data.Map.Internal
+                         containers-0.6.0.1:Data.Set.Internal
+import  -/  AST 7cd4eded584bb284b00c21174b1fbd55
+  exports: 38ad0293da0298a278760f1e58807521
+  Comm 111212fc3add40a8601b31ad2144c56d
+  Error 98e716768c926b92aad74901112a1647
+  Exp e61902d66b86f620aebeddf357ccccb5
+  Skip bba2fc3b8a8f2fa2578624311343cc5c
+  Variable a0cb1be5276c1724761d71b78d554b0c
+import  -/  base-4.12.0.0:Data.Either 423bee738f25e5ee983d072216009be8
+import  -/  base-4.12.0.0:GHC.Base c00b75f0b052d05c55ba6a4dd1c63b26
+import  -/  base-4.12.0.0:GHC.Err ea5e313ef4146b40b5d8b27aa168e736
+import  -/  base-4.12.0.0:Prelude 3c779dfd6448bdd8e234c336802c2acb
+import  -/  containers-0.6.0.1:Data.Map.Internal 3e569e355ae39dc42cfe39c88e0e022a
+import  -/  containers-0.6.0.1:Data.Map.Strict cdbeca9dfcd61c917272d3c2b8a5e4c8
+import  -/  strict-0.3.2:Data.Strict.Tuple 74a401831f11c322b825192e91199328
+e637575cce046bf16fd99d2cd0fd0609
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module Eval3.$trModule3 Eval3.$trModule1) -}
+261f93992dcfdb51ab02b1e4779f6992
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Eval3.$trModule2) -}
+f5578fa88d3711d39a1ca49422c06bdd
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Eval3"#) -}
+af8116c461c10fc310efd1deb3cdd77d
+  $trModule3 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Eval3.$trModule4) -}
+db9fb3dda8a17279dbf6ce0343c2772a
+  $trModule4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("TP1-0.1.0.0-4KwBlKAgtBNFj4YFqhKSAq"#) -}
+c73edffc3f4ad41805d95d4e9d50b059
+  type State =
+    (Data.Map.Internal.Map AST.Variable GHC.Types.Int, GHC.Base.String)
+55915172a8f54c5d8daf9c16ab475f90
+  eval :: AST.Comm -> Data.Either.Either AST.Error Eval3.State
+  {- Arity: 1, Strictness: <S,1*U>m2,
+     Unfolding: InlineRule (1, True, False)
+                (\ (p :: AST.Comm) ->
+                 case p of wild {
+                   DEFAULT
+                   -> case Eval3.stepComm
+                      ret_ty (Data.Either.Either AST.Error Eval3.State)
+                      of {}
+                   AST.Skip -> Eval3.eval1 }) -}
+e2ebe060853eedcd86fb75b73e0d864d
+  eval1 :: Data.Either.Either AST.Error Eval3.State
+  {- Strictness: m2,
+     Unfolding: (Data.Either.Right
+                   @ AST.Error
+                   @ Eval3.State
+                   Eval3.initState) -}
+26410c59514f3b5c75ea27d6e9feac5e
+  initState :: Eval3.State
+  {- Strictness: x -}
+f1e5b24172e5f9366a8c5c3d2ad8e05e
+  stepComm ::
+    AST.Comm
+    -> Eval3.State
+    -> Data.Either.Either
+         AST.Error (Data.Strict.Tuple.Pair AST.Comm Eval3.State)
+  {- Strictness: x -}
+trusted: none
+require own pkg trusted: False
+module header:
+  Nothing
+declaration docs:
+arg docs:
+

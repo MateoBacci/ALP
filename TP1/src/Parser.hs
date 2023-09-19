@@ -49,9 +49,9 @@ lis = makeTokenParser
 -----------------------------------
 -- parsea: term +- term +- ...
 
-intseq = chainl1 intassgn opSeq
+--intseq = chainl1 intassgn opSeq
 
-intassgn = chainl1 intexp opAssgn 
+--intassgn = chainl1 intexp opAssgn 
 
 intexp :: Parser (Exp Int) 
 intexp = chainl1 intterm opPlusMin
@@ -65,7 +65,7 @@ intterm = chainl1 intfactor opTimesDiv
 intfactor = do var <- identifier lis
                return $ Var var
          <|> do int <- integer lis
-                return $ Const int
+                return $ Const (fromInteger int)
          <|> do reservedOp lis "-"
                 f <- intfactor
                 return $ UMinus f
@@ -101,8 +101,8 @@ boolfactor = do reservedOp lis "!" -- Not ...
                 return $ Not f
              <|> do int <- intexp -- (== != < >)
                     opC <- opCompare
-                    int <- intexp
-                    return $ opC int int
+                    int' <- intexp
+                    return $ opC int int'
              <|> do v <- bVal -- true |false
                     return v
 

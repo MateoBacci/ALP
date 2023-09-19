@@ -1,10 +1,10 @@
 
 ==================== FINAL INTERFACE ====================
-2023-09-19 20:20:31.524124562 UTC
+2023-09-19 21:14:38.460211919 UTC
 
 interface TP1-0.1.0.0-4KwBlKAgtBNFj4YFqhKSAq:AST 8064
-  interface hash: aa862b785aaa48437df355d9325bc33e
-  ABI hash: 1c3e2d5220775d9df38e5e3ac87a861e
+  interface hash: 83a3bf10748cb1fff88d12d76ec963f7
+  ABI hash: 7cd4eded584bb284b00c21174b1fbd55
   export-list hash: 38ad0293da0298a278760f1e58807521
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: b464be464d1bf7181b90b9e208309b5b
@@ -33,19 +33,18 @@ import  -/  base-4.12.0.0:GHC.Base c00b75f0b052d05c55ba6a4dd1c63b26
 import  -/  base-4.12.0.0:GHC.Show 838a5d039379d82d9626aae53dfce276
 import  -/  base-4.12.0.0:Prelude 3c779dfd6448bdd8e234c336802c2acb
 import  -/  ghc-prim-0.5.3:GHC.Classes 0f6fd7d7db53fc48f6e1f01803cc6c9d
-import  -/  integer-gmp-1.0.2.0:GHC.Integer.Type 6d87087aea24143d2650f78480d954a3
-4c00f107bbd12a9c1889d65362dd8e6b
+c6e32a4b56548cd478b30264e7ac0ee6
   $bIfThen :: AST.Exp GHC.Types.Bool -> AST.Comm -> AST.Comm
   {- Arity: 2, HasNoCafRefs, Strictness: <L,U><L,U>m4,
      Unfolding: InlineRule (2, True, False)
                 (\ (b :: AST.Exp GHC.Types.Bool) (c :: AST.Comm) ->
                  AST.IfThenElse b c AST.Skip) -}
-126c885566b242ad0dfecc2eddbe0ccd
+111212fc3add40a8601b31ad2144c56d
   $fEqComm :: GHC.Classes.Eq AST.Comm
   DFunId
   {- HasNoCafRefs, Strictness: m, Inline: CONLIKE,
      Unfolding: DFun:. @ AST.Comm AST.$fEqComm_$c== AST.$fEqComm_$c/= -}
-126c885566b242ad0dfecc2eddbe0ccd
+111212fc3add40a8601b31ad2144c56d
   $fEqComm_$c/= :: AST.Comm -> AST.Comm -> GHC.Types.Bool
   {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U>,
      Inline: (sat-args=2),
@@ -54,7 +53,7 @@ import  -/  integer-gmp-1.0.2.0:GHC.Integer.Type 6d87087aea24143d2650f78480d954a
                  case AST.$fEqComm_$c== x y of wild {
                    GHC.Types.False -> GHC.Types.True
                    GHC.Types.True -> GHC.Types.False }) -}
-126c885566b242ad0dfecc2eddbe0ccd
+111212fc3add40a8601b31ad2144c56d
   $fEqComm_$c== :: AST.Comm -> AST.Comm -> GHC.Types.Bool
   {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U> -}
 98e716768c926b92aad74901112a1647
@@ -90,13 +89,13 @@ import  -/  integer-gmp-1.0.2.0:GHC.Integer.Type 6d87087aea24143d2650f78480d954a
                    -> case ds1 of wild1 {
                         AST.DivByZero -> GHC.Types.False
                         AST.UndefVar -> GHC.Types.True } }) -}
-eee51a3f4a06359722d7524717633529
+e61902d66b86f620aebeddf357ccccb5
   $fEqExp :: GHC.Classes.Eq (AST.Exp a)
   DFunId
   {- HasNoCafRefs, Strictness: m, Inline: CONLIKE,
      Unfolding: DFun: @ a.
                   @ (AST.Exp a) (AST.$fEqExp_$c== @ a) (AST.$fEqExp_$c/= @ a) -}
-eee51a3f4a06359722d7524717633529
+e61902d66b86f620aebeddf357ccccb5
   $fEqExp_$c/= :: AST.Exp a -> AST.Exp a -> GHC.Types.Bool
   {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U>,
      Inline: (sat-args=2),
@@ -105,10 +104,10 @@ eee51a3f4a06359722d7524717633529
                  case AST.$fEqExp_$c== @ a x y of wild {
                    GHC.Types.False -> GHC.Types.True
                    GHC.Types.True -> GHC.Types.False }) -}
-eee51a3f4a06359722d7524717633529
+e61902d66b86f620aebeddf357ccccb5
   $fEqExp_$c== :: AST.Exp a -> AST.Exp a -> GHC.Types.Bool
   {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U> -}
-126c885566b242ad0dfecc2eddbe0ccd
+111212fc3add40a8601b31ad2144c56d
   $fShowComm :: GHC.Show.Show AST.Comm
   DFunId
   {- Strictness: m, Inline: CONLIKE,
@@ -117,14 +116,14 @@ eee51a3f4a06359722d7524717633529
                   AST.$fShowComm_$cshowsPrec
                   AST.$fShowComm_$cshow
                   AST.$fShowComm_$cshowList -}
-126c885566b242ad0dfecc2eddbe0ccd
+111212fc3add40a8601b31ad2144c56d
   $fShowComm1 :: AST.Comm -> GHC.Show.ShowS
   {- Arity: 2,
      Unfolding: (AST.$fShowComm_$cshowsPrec AST.$fShowComm2) -}
 6de737f243586fd86cb19ae7fd980a69
   $fShowComm2 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 0#) -}
-126c885566b242ad0dfecc2eddbe0ccd
+111212fc3add40a8601b31ad2144c56d
   $fShowComm_$cshow :: AST.Comm -> GHC.Base.String
   {- Arity: 1, Strictness: <S,1*U>,
      Unfolding: InlineRule (1, True, False)
@@ -133,13 +132,13 @@ eee51a3f4a06359722d7524717633529
                    AST.$fShowComm2
                    x
                    (GHC.Types.[] @ GHC.Types.Char)) -}
-126c885566b242ad0dfecc2eddbe0ccd
+111212fc3add40a8601b31ad2144c56d
   $fShowComm_$cshowList :: [AST.Comm] -> GHC.Show.ShowS
   {- Arity: 2, Strictness: <S,1*U><L,U>,
      Unfolding: InlineRule (2, True, False)
                 (\ (ls :: [AST.Comm]) (s :: GHC.Base.String) ->
                  GHC.Show.showList__ @ AST.Comm AST.$fShowComm1 ls s) -}
-126c885566b242ad0dfecc2eddbe0ccd
+111212fc3add40a8601b31ad2144c56d
   $fShowComm_$cshowsPrec ::
     GHC.Types.Int -> AST.Comm -> GHC.Show.ShowS
   {- Arity: 3, Strictness: <L,1*U(U)><S,1*U><L,U> -}
@@ -225,7 +224,7 @@ f8bc86f0070e1d22f08a0d2ce758ec82
                            (n :: b)[OneShot] ->
                          GHC.Base.foldr @ GHC.Types.Char @ b c n AST.$fShowError2)
                         eta }) -}
-eee51a3f4a06359722d7524717633529
+e61902d66b86f620aebeddf357ccccb5
   $fShowExp :: GHC.Show.Show (AST.Exp a)
   DFunId
   {- Strictness: m, Inline: CONLIKE,
@@ -234,12 +233,12 @@ eee51a3f4a06359722d7524717633529
                   (AST.$fShowExp_$cshowsPrec @ a)
                   (AST.$fShowExp_$cshow @ a)
                   (AST.$fShowExp_$cshowList @ a) -}
-eee51a3f4a06359722d7524717633529
+e61902d66b86f620aebeddf357ccccb5
   $fShowExp1 :: AST.Exp a -> GHC.Show.ShowS
   {- Arity: 2,
      Unfolding: (\ @ a ->
                  AST.$fShowExp_$cshowsPrec @ a AST.$fShowComm2) -}
-eee51a3f4a06359722d7524717633529
+e61902d66b86f620aebeddf357ccccb5
   $fShowExp_$cshow :: AST.Exp a -> GHC.Base.String
   {- Arity: 1, Strictness: <S,1*U>,
      Unfolding: InlineRule (1, True, False)
@@ -249,17 +248,17 @@ eee51a3f4a06359722d7524717633529
                    AST.$fShowComm2
                    x
                    (GHC.Types.[] @ GHC.Types.Char)) -}
-eee51a3f4a06359722d7524717633529
+e61902d66b86f620aebeddf357ccccb5
   $fShowExp_$cshowList :: [AST.Exp a] -> GHC.Show.ShowS
   {- Arity: 2, Strictness: <S,1*U><L,U>,
      Unfolding: InlineRule (2, True, False)
                 (\ @ a (ls :: [AST.Exp a]) (s :: GHC.Base.String) ->
                  GHC.Show.showList__ @ (AST.Exp a) (AST.$fShowExp1 @ a) ls s) -}
-eee51a3f4a06359722d7524717633529
+e61902d66b86f620aebeddf357ccccb5
   $fShowExp_$cshowsPrec ::
     GHC.Types.Int -> AST.Exp a -> GHC.Show.ShowS
   {- Arity: 3, Strictness: <L,1*U(U)><S,1*U><L,U> -}
-57706b27475b35713c9591a3ca9a0729
+9588a4dc1374a6d0e340e546b844a9a3
   $mIfThen ::
     AST.Comm
     -> (AST.Exp GHC.Types.Bool -> AST.Comm -> r)
@@ -817,7 +816,7 @@ f8dcc6fd4e69f7b94a55f993248596b2
   $trModule4 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("TP1-0.1.0.0-4KwBlKAgtBNFj4YFqhKSAq"#) -}
-126c885566b242ad0dfecc2eddbe0ccd
+111212fc3add40a8601b31ad2144c56d
   data Comm
     = Skip
     | Let AST.Variable (AST.Exp GHC.Types.Int)
@@ -826,10 +825,10 @@ f8dcc6fd4e69f7b94a55f993248596b2
     | Repeat AST.Comm (AST.Exp GHC.Types.Bool)
 98e716768c926b92aad74901112a1647
   data Error = DivByZero | UndefVar
-eee51a3f4a06359722d7524717633529
+e61902d66b86f620aebeddf357ccccb5
   type role Exp nominal
   data Exp a where
-    Const :: GHC.Integer.Type.Integer -> Exp GHC.Types.Int
+    Const :: GHC.Types.Int -> Exp GHC.Types.Int
     Var :: AST.Variable -> Exp GHC.Types.Int
     UMinus :: (AST.Exp GHC.Types.Int) -> Exp GHC.Types.Int
     Plus :: (AST.Exp GHC.Types.Int) -> (AST.Exp GHC.Types.Int)
@@ -859,7 +858,7 @@ eee51a3f4a06359722d7524717633529
           -> Exp GHC.Types.Bool
     NEq :: (AST.Exp GHC.Types.Int) -> (AST.Exp GHC.Types.Int)
            -> Exp GHC.Types.Bool
-3b03ed25b141aa71ed953fa6dbb6bbfa
+4327f54ffe36f9c88d59a779e8350548
   pattern AST.IfThen
     :: AST.Exp GHC.Types.Bool -> AST.Comm -> AST.Comm
 a0cb1be5276c1724761d71b78d554b0c

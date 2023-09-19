@@ -6,7 +6,7 @@ type Variable = String
 -- Expresiones, aritmeticas y booleanas
 data Exp a where 
   -- Expresiones enteras
-  Const :: Integer -> Exp Int
+  Const :: Int -> Exp Int
   Var :: Variable -> Exp Int
   UMinus :: Exp Int -> Exp Int
   Plus :: Exp Int -> Exp Int -> Exp Int
