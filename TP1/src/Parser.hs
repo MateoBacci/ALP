@@ -4,8 +4,6 @@ import           Text.ParserCombinators.Parsec
 import           Text.Parsec.Token
 import           Text.Parsec.Language           ( emptyDef )
 import           Text.Parsec.String
-import           Text.Parsec.Prim
-import           Text.Parsec.Combinator
 import           AST
 
 -----------------------
@@ -25,7 +23,7 @@ lis = makeTokenParser
     , commentEnd      = "*/"
     , commentLine     = "//"
     , opLetter        = char '='
-    , reservedNames   = ["true", "false", "if", "else", "repeat", "skip", "until"]
+    , reservedNames   = ["true", "false", "if", "else", "end", "repeat", "skip", "until"]
     , reservedOpNames = [ "+"
                         , "-"
                         , "*"
@@ -47,30 +45,36 @@ lis = makeTokenParser
 ----------------------------------
 --- Parser de expressiones enteras
 -----------------------------------
--- parsea: term +- term +- ...
 
---intseq = chainl1 intassgn opSeq
-
---intassgn = chainl1 intexp opAssgn 
-
+-- parsea: intassgn "," intassgn "," intassgn "," ...
 intexp :: Parser (Exp Int) 
-intexp = chainl1 intterm opPlusMin
+intexp = chainl1 ((try intassgn) <|> intplusmin) opSeq
 
--- parsea: factor */ factor */ ...
+-- parsea: var "=" intplusmin
+intassgn = do var <- identifier lis
+              reservedOp lis "="
+              exp <- intplusmin
+              return $ EAssgn var exp
+
+-- paesea intterm "+" intterm "-" intterm "+" ...
+intplusmin = chainl1 intterm opPlusMin
+
+-- parsea: intfactor "*" intfactor "/" factor "*" ...
 intterm = chainl1 intfactor opTimesDiv 
 
--- parsea: var
---         int
---         -...
+-- parsea: |Var
+--         |Int
+--         |"-"...
+--         |"("intexp")"
 intfactor = do var <- identifier lis
                return $ Var var
-         <|> do int <- integer lis
-                return $ Const (fromInteger int)
-         <|> do reservedOp lis "-"
-                f <- intfactor
-                return $ UMinus f
-         <|> do f <- parens lis intexp -- entre ()
-                return f
+            <|> do int <- integer lis
+                   return $ Const (fromInteger int)
+            <|> do reservedOp lis "-"
+                   f <- intfactor
+                   return $ UMinus f
+            <|> do f <- parens lis intexp -- entre ()
+                   return f
 
 opPlusMin = do reservedOp lis "+"
                return $ Plus
@@ -82,6 +86,9 @@ opTimesDiv = do reservedOp lis "*"
                 return Times
              <|> do reservedOp lis "/"
                     return Div
+
+opSeq = do reservedOp lis ","
+           return ESeq
 
 -----------------------------------
 --- Parser de expressiones booleanas
@@ -137,10 +144,10 @@ bVal = do reserved lis "true"
 comm :: Parser Comm
 comm = chainl1 commterm opcomm
 
--- parsea: var = intexp
---         ifThen
---         ifThenELse
---         repeatUntil
+-- parsea: |Var "=" intexp
+--         |IfThen
+--         |IfThenELse
+--         |repeatUntil
 commterm = do v <- identifier lis
               reserved lis "="
               n <- intexp
@@ -158,6 +165,7 @@ repeatUntil = do reserved lis "repeat"
                  c <- comm
                  reserved lis "until"
                  b <- boolexp
+                 reserved lis "end"
                  return $ Repeat c b
 
 -- parsea: if ... then {...} else {...}
