@@ -16,11 +16,10 @@ initState :: State
 initState = M.empty
 
 -- Busca el valor de una variable en un estado
--- Completar definicion
 lookfor :: Variable -> State -> Int
 lookfor v s = case M.lookup v s of
                 Just a -> a
-                Nothing -> 0 -- lookup en realidad devuelve Maybe, no Int. Ver eso. 
+                Nothing -> undefined 
 
 -- Cambia el valor de una variable en un estado
 update :: Variable -> Int -> State -> State
