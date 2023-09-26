@@ -58,18 +58,10 @@ evalExp e s = case e of
   Var v -> ((lookfor v s) :!: s)
   UMinus n -> let (n' :!: s') = evalExp n s
               in ((-n') :!: s')
-  Plus a b -> let (a' :!: s') = evalExp a s
-                  (b' :!: s'') = evalExp b s'
-              in ((a' + b') :!: s'')
-  Minus a b -> let (a' :!: s') = evalExp a s
-                   (b' :!: s'') = evalExp b s'
-               in ((a' - b') :!: s'')
-  Times a b -> let (a' :!: s') = evalExp a s
-                   (b' :!: s'') = evalExp b s'
-               in ((a' * b') :!: s'')
-  Div a b -> let (a' :!: s') = evalExp a s
-                 (b' :!: s'') = evalExp b s'
-             in ((div a' b') :!: s'')
+  Plus a b -> fun a b (+)
+  Minus a b -> fun a b (-)
+  Times a b -> fun a b (*)
+  Div a b -> fun a b div
   ESeq e1 e2 -> let (n1 :!: s') = evalExp e1 s 
                     (n2 :!: s'') = evalExp e2 s'
                 in (n2 :!: s'')
@@ -77,24 +69,16 @@ evalExp e s = case e of
                 in (n' :!: (update v n' s))
   BTrue -> (True :!: s)
   BFalse -> (False :!: s)
-  Lt a b -> let (a' :!: s') = evalExp a s
-                (b' :!: s'') = evalExp b s'
-            in ((a' < b') :!: s'')
-  Gt a b -> let (a' :!: s') = evalExp a s
-                (b' :!: s'') = evalExp b s'
-            in ((a' > b') :!: s'')
-  And a b -> let (a' :!: s') = evalExp a s
-                 (b' :!: s'') = evalExp b s'
-             in ((a' && b') :!: s'')
-  Or a b -> let (a' :!: s') = evalExp a s
-                (b' :!: s'') = evalExp b s'
-            in ((a' || b') :!: s'')
+  Lt a b -> fun a b (<)
+  Gt a b -> fun a b (>)
+  And a b -> fun a b (&&)
+  Or a b -> fun a b (||)
   Not a -> let (a' :!: s') = evalExp a s
            in ((not a') :!: s')
-  Eq a b -> let (a' :!: s') = evalExp a s
-                (b' :!: s'') = evalExp b s'
-            in ((a' == b') :!: s'')
-  NEq a b -> let (a' :!: s') = evalExp a s
-                 (b' :!: s'') = evalExp b s'
-             in ((a' /= b') :!: s'')
-
+  Eq a b -> fun a b (==)
+  NEq a b -> fun a b (/=)
+  where
+    fun :: Exp a -> Exp a -> (a -> a -> b) -> Pair b State
+    fun = \x y op -> let (a' :!: s') = evalExp x s
+                         (b' :!: s'') = evalExp y s'
+                     in (op a' b' :!: s'')

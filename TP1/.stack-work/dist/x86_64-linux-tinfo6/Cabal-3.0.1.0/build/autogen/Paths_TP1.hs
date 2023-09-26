@@ -29,12 +29,12 @@ version :: Version
 version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/home/seba/Escritorio/ALP TPS/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/206249bc7e7308ec84d160ce8acb52213d2b04d2b30096560f19ece06ab15b7e/8.8.3/bin"
-libdir     = "/home/seba/Escritorio/ALP TPS/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/206249bc7e7308ec84d160ce8acb52213d2b04d2b30096560f19ece06ab15b7e/8.8.3/lib/x86_64-linux-ghc-8.8.3/TP1-0.1.0.0-Jb3fQuRG8SO5hPu3thChUC"
-dynlibdir  = "/home/seba/Escritorio/ALP TPS/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/206249bc7e7308ec84d160ce8acb52213d2b04d2b30096560f19ece06ab15b7e/8.8.3/lib/x86_64-linux-ghc-8.8.3"
-datadir    = "/home/seba/Escritorio/ALP TPS/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/206249bc7e7308ec84d160ce8acb52213d2b04d2b30096560f19ece06ab15b7e/8.8.3/share/x86_64-linux-ghc-8.8.3/TP1-0.1.0.0"
-libexecdir = "/home/seba/Escritorio/ALP TPS/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/206249bc7e7308ec84d160ce8acb52213d2b04d2b30096560f19ece06ab15b7e/8.8.3/libexec/x86_64-linux-ghc-8.8.3/TP1-0.1.0.0"
-sysconfdir = "/home/seba/Escritorio/ALP TPS/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/206249bc7e7308ec84d160ce8acb52213d2b04d2b30096560f19ece06ab15b7e/8.8.3/etc"
+bindir     = "/home/mateo/Desktop/lcc/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/5abfdf5b0d99eb191b3d11c3eba7c3e4dc33f82c7404ca3228b65ae2619ab21a/8.8.3/bin"
+libdir     = "/home/mateo/Desktop/lcc/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/5abfdf5b0d99eb191b3d11c3eba7c3e4dc33f82c7404ca3228b65ae2619ab21a/8.8.3/lib/x86_64-linux-ghc-8.8.3/TP1-0.1.0.0-Jb3fQuRG8SO5hPu3thChUC"
+dynlibdir  = "/home/mateo/Desktop/lcc/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/5abfdf5b0d99eb191b3d11c3eba7c3e4dc33f82c7404ca3228b65ae2619ab21a/8.8.3/lib/x86_64-linux-ghc-8.8.3"
+datadir    = "/home/mateo/Desktop/lcc/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/5abfdf5b0d99eb191b3d11c3eba7c3e4dc33f82c7404ca3228b65ae2619ab21a/8.8.3/share/x86_64-linux-ghc-8.8.3/TP1-0.1.0.0"
+libexecdir = "/home/mateo/Desktop/lcc/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/5abfdf5b0d99eb191b3d11c3eba7c3e4dc33f82c7404ca3228b65ae2619ab21a/8.8.3/libexec/x86_64-linux-ghc-8.8.3/TP1-0.1.0.0"
+sysconfdir = "/home/mateo/Desktop/lcc/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/5abfdf5b0d99eb191b3d11c3eba7c3e4dc33f82c7404ca3228b65ae2619ab21a/8.8.3/etc"
 
 getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "TP1_bindir") (\_ -> return bindir)
