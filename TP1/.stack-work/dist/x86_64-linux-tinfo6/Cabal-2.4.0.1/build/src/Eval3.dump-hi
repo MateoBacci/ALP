@@ -1,10 +1,10 @@
 
 ==================== FINAL INTERFACE ====================
-2023-09-19 21:16:25.339407305 UTC
+2023-09-26 21:21:03.855908087 UTC
 
 interface TP1-0.1.0.0-4KwBlKAgtBNFj4YFqhKSAq:Eval3 8064
-  interface hash: ad492acdd9fe965b28d77a899128f06d
-  ABI hash: e50ca1f874f43bc25a9943e028cd0c6d
+  interface hash: 6077612ef0a25c676b115bba9f332b36
+  ABI hash: 002945a68e6997a01e8d55940e54bc96
   export-list hash: f9e5486e545ea2b456f9809eb099bca1
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: b464be464d1bf7181b90b9e208309b5b
@@ -35,18 +35,59 @@ family instance modules: base-4.12.0.0:Control.Applicative
                          containers-0.6.0.1:Data.Set.Internal
 import  -/  AST 7cd4eded584bb284b00c21174b1fbd55
   exports: 38ad0293da0298a278760f1e58807521
+  And 97fb649ce80c6d0a7d7bd7ce50a4d2b8
+  BFalse 69ca426b7fe086a8b35a9ed19ed5af7d
+  BTrue 075bea2f9d7a2a9047ecb0a106b3b344
   Comm 111212fc3add40a8601b31ad2144c56d
+  Const 2dc9ec1f34994154087dbb937936bfec
+  Div b76c5c0007e1edcc8247c2901999c348
+  DivByZero 65ddc0845b2cf0cbe54f91082374554f
+  EAssgn 673c420368f3a5ece70822c67439dcbb
+  ESeq 30ba28c6d80077252f7f82efa0c7393e
+  Eq 42fb8260f3f49e6daced82d4ded9ab4a
   Error 98e716768c926b92aad74901112a1647
   Exp e61902d66b86f620aebeddf357ccccb5
+  Gt 106cfe52f94b738396f2e44b70c45750
+  IfThenElse 4bd566072514db0a45c911534547016d
+  Let b5cbba94ad258bbb9d7b343cec52b5ee
+  Lt ce3ce79873fbb01351ae669c8138edb4
+  Minus 592a11f13e7ecf300cc8032524c32b0e
+  NEq edfe34974fc433a64e263305a14c2f38
+  Not 896417f3866a6ec15f0f5495a3cafddc
+  Or 62c296d85d29cd1b3ed9fecf05999d4c
+  Plus 03179fc4b68914340fe7cec3003c83d0
+  Repeat 7c7b1e7b973e788156884d888fb75f62
+  Seq 807e32a23569f58202ece0e4f5036b53
   Skip bba2fc3b8a8f2fa2578624311343cc5c
+  Times d607cb3ed165c77a525b47dd5939d58f
+  UMinus 3375c7098f67699cb0db9c7d8a707360
+  UndefVar 41d6a479e0785c82cf96a44c32a04e74
+  Var 904f3c614a2ba9033168c3d4800ba563
   Variable a0cb1be5276c1724761d71b78d554b0c
 import  -/  base-4.12.0.0:Data.Either 423bee738f25e5ee983d072216009be8
+import  -/  base-4.12.0.0:Data.Tuple c719fc29608fe81c10bee9a1bf1e05ff
 import  -/  base-4.12.0.0:GHC.Base c00b75f0b052d05c55ba6a4dd1c63b26
-import  -/  base-4.12.0.0:GHC.Err ea5e313ef4146b40b5d8b27aa168e736
+import  -/  base-4.12.0.0:GHC.Num c2039f03637c68f47b0bbff4c18ec616
+import  -/  base-4.12.0.0:GHC.Real af2b985dd29515c375fb78b2c9298d42
+import  -/  base-4.12.0.0:GHC.Show 838a5d039379d82d9626aae53dfce276
 import  -/  base-4.12.0.0:Prelude 3c779dfd6448bdd8e234c336802c2acb
 import  -/  containers-0.6.0.1:Data.Map.Internal 3e569e355ae39dc42cfe39c88e0e022a
 import  -/  containers-0.6.0.1:Data.Map.Strict cdbeca9dfcd61c917272d3c2b8a5e4c8
+import  -/  containers-0.6.0.1:Data.Map.Strict.Internal 562354ee17316948ee563f93038b80cd
+import  -/  ghc-prim-0.5.3:GHC.Classes 0f6fd7d7db53fc48f6e1f01803cc6c9d
 import  -/  strict-0.3.2:Data.Strict.Tuple 74a401831f11c322b825192e91199328
+2caa9c20682d3fdad804f3155970dffd
+  $sinsert_$sgo8 ::
+    AST.Variable
+    -> a1
+    -> Data.Map.Internal.Map AST.Variable a1
+    -> Data.Map.Internal.Map AST.Variable a1
+  {- Arity: 3, Strictness: <S,1*U><S,1*U><S,1*U> -}
+30942f8962204e09ce2c31658b1a3735
+  $slookup1 ::
+    AST.Variable
+    -> Data.Map.Internal.Map AST.Variable a -> GHC.Maybe.Maybe a
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U> -}
 e637575cce046bf16fd99d2cd0fd0609
   $trModule :: GHC.Types.Module
   {- HasNoCafRefs, Strictness: m,
@@ -69,34 +110,20 @@ db9fb3dda8a17279dbf6ce0343c2772a
 c73edffc3f4ad41805d95d4e9d50b059
   type State =
     (Data.Map.Internal.Map AST.Variable GHC.Types.Int, GHC.Base.String)
-55915172a8f54c5d8daf9c16ab475f90
+00d1be177817b48ded65ccc3f3f74fa8
   eval :: AST.Comm -> Data.Either.Either AST.Error Eval3.State
-  {- Arity: 1, Strictness: <S,1*U>m2,
+  {- Arity: 1, Strictness: <S,1*U>,
      Unfolding: InlineRule (1, True, False)
-                (\ (p :: AST.Comm) ->
-                 case p of wild {
-                   DEFAULT
-                   -> case Eval3.stepComm
-                      ret_ty (Data.Either.Either AST.Error Eval3.State)
-                      of {}
-                   AST.Skip -> Eval3.eval1 }) -}
-e2ebe060853eedcd86fb75b73e0d864d
-  eval1 :: Data.Either.Either AST.Error Eval3.State
-  {- Strictness: m2,
-     Unfolding: (Data.Either.Right
-                   @ AST.Error
-                   @ Eval3.State
-                   Eval3.initState) -}
-26410c59514f3b5c75ea27d6e9feac5e
+                (\ (p :: AST.Comm) -> Eval3.stepCommStar p Eval3.initState) -}
+347b43a94c447cd6799d459baecab7e9
   initState :: Eval3.State
-  {- Strictness: x -}
-f1e5b24172e5f9366a8c5c3d2ad8e05e
-  stepComm ::
-    AST.Comm
-    -> Eval3.State
-    -> Data.Either.Either
-         AST.Error (Data.Strict.Tuple.Pair AST.Comm Eval3.State)
-  {- Strictness: x -}
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Data.Map.Internal.Tip @ AST.Variable @ GHC.Types.Int,
+                  GHC.Types.[] @ GHC.Types.Char)) -}
+6317d53d71ff314252b0f4d4df2b7add
+  stepCommStar ::
+    AST.Comm -> Eval3.State -> Data.Either.Either AST.Error Eval3.State
+  {- Arity: 2, Strictness: <S,1*U><L,U(U,U)> -}
 trusted: none
 require own pkg trusted: False
 module header:

@@ -29,12 +29,12 @@ version :: Version
 version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/home/alumno/Escritorio/ALP/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/lts-13.19/8.6.4/bin"
-libdir     = "/home/alumno/Escritorio/ALP/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/lts-13.19/8.6.4/lib/x86_64-linux-ghc-8.6.4/TP1-0.1.0.0-DpuoImRlqaSFEqxdigO6He-TP1-exe"
-dynlibdir  = "/home/alumno/Escritorio/ALP/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/lts-13.19/8.6.4/lib/x86_64-linux-ghc-8.6.4"
-datadir    = "/home/alumno/Escritorio/ALP/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/lts-13.19/8.6.4/share/x86_64-linux-ghc-8.6.4/TP1-0.1.0.0"
-libexecdir = "/home/alumno/Escritorio/ALP/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/lts-13.19/8.6.4/libexec/x86_64-linux-ghc-8.6.4/TP1-0.1.0.0"
-sysconfdir = "/home/alumno/Escritorio/ALP/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/lts-13.19/8.6.4/etc"
+bindir     = "/home/alumno/Escritorio/ALP/TP/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/lts-13.19/8.6.4/bin"
+libdir     = "/home/alumno/Escritorio/ALP/TP/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/lts-13.19/8.6.4/lib/x86_64-linux-ghc-8.6.4/TP1-0.1.0.0-DpuoImRlqaSFEqxdigO6He-TP1-exe"
+dynlibdir  = "/home/alumno/Escritorio/ALP/TP/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/lts-13.19/8.6.4/lib/x86_64-linux-ghc-8.6.4"
+datadir    = "/home/alumno/Escritorio/ALP/TP/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/lts-13.19/8.6.4/share/x86_64-linux-ghc-8.6.4/TP1-0.1.0.0"
+libexecdir = "/home/alumno/Escritorio/ALP/TP/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/lts-13.19/8.6.4/libexec/x86_64-linux-ghc-8.6.4/TP1-0.1.0.0"
+sysconfdir = "/home/alumno/Escritorio/ALP/TP/ALP/TP1/.stack-work/install/x86_64-linux-tinfo6/lts-13.19/8.6.4/etc"
 
 getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "TP1_bindir") (\_ -> return bindir)
