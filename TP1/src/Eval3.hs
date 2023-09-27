@@ -70,38 +70,44 @@ evalExp :: Exp a -> State -> Either Error (Pair a State)
 evalExp e s =
   case e of
     Const n -> Right (n :!: s)
-    Var v -> case lookfor v s of
-               Right n -> Right (n :!: s)
-               _ -> Left UndefVar
-    UMinus n -> case evalExp n s of
-                  Right (n' :!: s') -> Right ((-n') :!: s')
-                  Left error -> Left error
+    Var v -> 
+      case lookfor v s of
+        Right n -> Right (n :!: s)
+        _ -> Left UndefVar
+    UMinus n -> 
+      case evalExp n s of
+        Right (n' :!: s') -> Right ((-n') :!: s')
+        Left error -> Left error
     Plus a b -> fun a b (+)
     Minus a b -> fun a b (-)
     Times a b -> fun a b (*)
-    Div a b -> case evalExp a s of
-                Right (a' :!: s') -> 
-                  case evalExp b s' of
-                    Right (b' :!: s'') -> if b' == 0
-                                          then Left DivByZero
-                                          else Right ((div a' b') :!: s'')
-                    Left error -> Left error
-                Left error -> Left error
-    ESeq e1 e2 -> case evalExp e1 s of
-                    Right (n1 :!: s') -> evalExp e2 s'
-                    Left error -> Left error
-    EAssgn v n -> case evalExp n s of
-                    Right (n' :!: s') -> Right (n' :!: update v n' s)
-                    Left error -> Left error
+    Div a b -> 
+      case evalExp a s of
+        Right (a' :!: s') -> 
+          case evalExp b s' of
+            Right (b' :!: s'') -> if b' == 0
+                                  then Left DivByZero
+                                  else Right ((div a' b') :!: s'')
+            Left error -> Left error
+        Left error -> Left error
+    ESeq e1 e2 -> 
+      case evalExp e1 s of
+        Right (n1 :!: s') -> evalExp e2 s'
+        Left error -> Left error
+    EAssgn v n -> 
+      case evalExp n s of
+        Right (n' :!: s') -> Right (n' :!: update v n' s)
+        Left error -> Left error
     BTrue -> Right (True :!: s)
     BFalse -> Right (False :!: s)
     Lt a b -> fun a b (<)
     Gt a b -> fun a b (>)
     And a b -> fun a b (&&)
     Or a b -> fun a b (||)
-    Not a -> case evalExp a s of
-               Right (a' :!: s') -> Right ((not a') :!: s')
-               Left error -> Left error
+    Not a -> 
+      case evalExp a s of
+        Right (a' :!: s') -> Right ((not a') :!: s')
+        Left error -> Left error
     Eq a b -> fun a b (==)
     NEq a b -> fun a b (/=)
     where
