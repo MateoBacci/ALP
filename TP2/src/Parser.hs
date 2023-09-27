@@ -15,7 +15,12 @@ import           Untyped
 ----------------------------------------------
 
 num :: Integer -> LamTerm
-num = undefined
+num n = Abs "s" (Abs "z" (num' n))
+
+num' :: Integer -> LamTerm
+num' 0 = LVar "z"
+num' n = App (LVar "s") (num' (n-1)) 
+
 
 -------------------------------------------------
 -- Parser de Lambda Cálculo (Gramatica Extendida) 
