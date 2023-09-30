@@ -12,7 +12,24 @@ import           Common
 ----------------------------------------------
 
 conversion :: LamTerm -> Term
-conversion = undefined
+conversion l = conv l []
+
+conv :: LamTerm -> [String] -> Term
+conv lt ls =
+  case lt of 
+    LVar s -> 
+      case (search s ls) of 
+        Just a -> Bound a
+        Nothing -> Free (Global s)
+    App lt1 lt2 -> (conv lt1 ls) :@: (conv lt2 ls)
+    Abs v lt' -> conv lt (ls ++ [v])
+  where 
+    search :: String -> [String] -> Maybe Int
+    search s ls = search' s ls 0
+    search' :: String -> [String]  -> Int -> Maybe Int
+    search' _ [] _     = Nothing
+    search' s (x:xs) n = if s == x then (Just n) else (search' s xs (n+1)) 
+     
 
 -------------------------------
 -- Sección 3
