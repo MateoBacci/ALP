@@ -44,10 +44,10 @@ eval e t = eval' t (e, [])
 
 eval' :: Term -> (NameEnv Value, [Value]) -> Value
 eval' (Bound ii) (_, lEnv) = lEnv !! ii
-eval' (Free n) (gEnv, _) = case lookup n gEnv of
-                            Just v -> v
-                            Nothing -> VNeutral (NFree n)
-eval' (t1 :@: t2) e = vapp (eval' t1 e) (eval' t2 e)
+eval'  (Free n)  (gEnv, _) = case lookup n gEnv of
+                               Just v -> v
+                               Nothing -> VNeutral (NFree n)
+eval' (t1 :@: t2)    e     = vapp (eval' t1 e) (eval' t2 e)
 eval' (Lam t) (gEnv, lEnv) = VLam (\x -> eval' t (gEnv, x:lEnv))
 
 --------------------------------
@@ -55,10 +55,8 @@ eval' (Lam t) (gEnv, lEnv) = VLam (\x -> eval' t (gEnv, x:lEnv))
 --------------------------------
 
 quote :: Value -> Term
-quote = undefined
+quote v = quote' v 0
 
-
-
-
-
-
+quote' :: Value -> Int -> Term
+quote'   (VLam f)   n = Lam (quote' f (n+1))
+quote' (VNeutral m) n = quote' m n
