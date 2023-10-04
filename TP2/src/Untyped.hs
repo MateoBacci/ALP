@@ -39,15 +39,16 @@ vapp :: Value -> Value -> Value
 vapp (VLam f) v     = f v
 vapp (VNeutral n) v = VNeutral (NApp n v)
     
-
 eval :: NameEnv Value -> Term -> Value
 eval e t = eval' t (e, [])
 
 eval' :: Term -> (NameEnv Value, [Value]) -> Value
-eval' (Bound ii)  (_, lEnv) = lEnv !! ii
-eval' (Free n)    _         = VNeutral (NFree n)
-eval' (t1 :@: t2) t         = vapp (eval' t1 t) (eval' t2 t)
-eval' (Lam t)     tup       = VLam (eval' t tup)  
+eval' (Bound ii) (_, lEnv) = lEnv !! ii
+eval' (Free n) (gEnv, _) = case lookup n gEnv of
+                            Just v -> v
+                            Nothing -> VNeutral (NFree n)
+eval' (t1 :@: t2) e = vapp (eval' t1 e) (eval' t2 e)
+eval' (Lam t) (gEnv, lEnv) = VLam (\x -> eval' t (gEnv, x:lEnv))
 
 --------------------------------
 -- Sección 4 - Mostrando Valores
