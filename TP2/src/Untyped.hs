@@ -22,11 +22,11 @@ conv lt ls =
         Just a -> Bound a
         Nothing -> Free (Global s)
     App lt1 lt2 -> (conv lt1 ls) :@: (conv lt2 ls)
-    Abs v lt' -> conv lt (v:ls)
+    Abs v lt' -> Lam (conv lt' (v:ls))
   where 
     search :: String -> [String] -> Maybe Int
     search s ls = search' s ls 0
-    search' :: String ->String]  -> Int -> Maybe Int
+    search' :: String -> [String]  -> Int -> Maybe Int
     search' _ [] _     = Nothing
     search' s (x:xs) n = if s == x then (Just n) else (search' s xs (n+1)) 
      
@@ -36,14 +36,19 @@ conv lt ls =
 -------------------------------
 
 vapp :: Value -> Value -> Value
-vapp = undefined
+vapp (VLam f) v = f v
+vapp (VNeutral n) v = VNeutral (NApp n v)
 
 eval :: NameEnv Value -> Term -> Value
 eval e t = eval' t (e, [])
 
 eval' :: Term -> (NameEnv Value, [Value]) -> Value
 eval' (Bound ii) (_, lEnv) = lEnv !! ii
-eval' _          _         = undefined
+eval' (Free n) (gEnv, _) = case lookup n gEnv of
+                            Just v -> v
+                            Nothing -> VNeutral (NFree n)
+eval' (t1 :@: t2) e = vapp (eval' t1 e) (eval' t2 e)
+eval' (Lam t) (gEnv, lEnv) = VLam (\x -> eval' t (gEnv, x:lEnv))
 
 
 --------------------------------
