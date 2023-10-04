@@ -36,7 +36,7 @@ conv lt ls =
 -------------------------------
 
 vapp :: Value -> Value -> Value
-vapp (VLam f) v     = f v
+vapp   (VLam f)   v = f v
 vapp (VNeutral n) v = VNeutral (NApp n v)
     
 eval :: NameEnv Value -> Term -> Value
@@ -58,5 +58,6 @@ quote :: Value -> Term
 quote v = quote' v 0
 
 quote' :: Value -> Int -> Term
-quote'   (VLam f)   n = Lam (quote' f (n+1))
-quote' (VNeutral m) n = quote' m n
+quote'   (VLam (\x -> f))   n = Lam (quote' f (n+1))
+quote' (VNeutral (NFree nom)) n = Free nom
+quote' (VNeutral (NApp neu val)) = (quote' (VNeutral neu) n) :@: (quote' val n)
