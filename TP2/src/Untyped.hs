@@ -55,9 +55,17 @@ eval' (Lam t) (gEnv, lEnv) = VLam (\x -> eval' t (gEnv, x:lEnv))
 --------------------------------
 
 quote :: Value -> Term
-quote v = quote' v 0
+quote v = let term = quote' v 0
+          in bound term
 
 quote' :: Value -> Int -> Term
-quote'   (VLam (\x -> f))   n = Lam (quote' f (n+1))
+quote'   (VLam f)   n = Lam (quote' (f (VNeutral(NFree (Quote n)))) (n+1))
 quote' (VNeutral (NFree nom)) n = Free nom
-quote' (VNeutral (NApp neu val)) = (quote' (VNeutral neu) n) :@: (quote' val n)
+quote' (VNeutral (NApp neu val)) n = (quote' (VNeutral neu) n) :@: (quote' val n)
+
+bound :: Term -> Term
+bound term = bound' term 0
+             where bound' (Bound i) _ = Bound i
+                   bound'  (Free (Quote k))  n = Bound (n - k)
+                   bound' (t1 :@: t2) n = (bound' t1 n) :@: (bound' t2 n)
+                   bound' (Lam t) n = Lam (bound' t (n + 1))
