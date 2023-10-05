@@ -1,1 +1,7 @@
-def divisores = \n
+def divisores = Y (\f n m . (iz0 m) nil ((is0 (resto n m)) (cons m (f n (pred m))) (f n (pred m)))) 
+
+def resto = Y (\f n m . (equal n m) zero ((is0 (resta n m)) m (f n (pred m))))
+
+def equal = \n m . and (is0 (resta n m)) (is0 (resta m n))
+
+def resta = \n m . m pred n
