@@ -55,7 +55,7 @@ quote :: Value -> Term
 quote v = quote' v 0
 
 quote' :: Value -> Int -> Term
-quote' (VLam f)                    i = Lam (quote' (f (VNeutral(NFree (Quote i)))) (i+1))
-quote' (VNeutral(NFree (Quote k))) i = Bound (i - k - 1)
-quote' (VNeutral (NFree nom))      i = Free nom
-quote' (VNeutral (NApp neu val))   i = (quote' (VNeutral neu) i) :@: (quote' val i)
+quote' (VLam f)                     i = Lam (quote' (f (VNeutral(NFree (Quote i)))) (i+1))
+quote' (VNeutral (NFree (Quote k))) i = Bound (i - k - 1)
+quote' (VNeutral (NFree nom))       i = Free nom
+quote' (VNeutral (NApp neu val))    i = (quote' (VNeutral neu) i) :@: (quote' val i)
