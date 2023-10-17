@@ -25,6 +25,7 @@ import Data.Char
     VAR     { TVar $$ }
     TYPEE   { TTypeE }
     DEF     { TDef }
+    LET     { TLet }
     
 
 %right VAR
@@ -40,8 +41,13 @@ Defexp  : DEF VAR '=' Exp              { Def $2 $4 }
 
 Exp     :: { LamTerm }
         : '\\' VAR ':' Type '.' Exp    { LAbs $2 $4 $6 }
+        | Let                          { $1 }
         | NAbs                         { $1 }
         
+Let     :: { LamTerm }
+        : LET VAR '=' Exp IN Exp       { LLet $2 $4 $6 }
+        
+
 NAbs    :: { LamTerm }
         : NAbs Atom                    { LApp $1 $2 }
         | Atom                         { $1 }
@@ -49,6 +55,7 @@ NAbs    :: { LamTerm }
 Atom    :: { LamTerm }
         : VAR                          { LVar $1 }  
         | '(' Exp ')'                  { $2 }
+
 
 Type    : TYPEE                        { EmptyT }
         | Type '->' Type               { FunT $1 $3 }
@@ -122,6 +129,7 @@ lexer cont s = case s of
                     where lexVar cs = case span isAlpha cs of
                               ("E",rest)    -> cont TTypeE rest
                               ("def",rest)  -> cont TDef rest
+                              ("let",rest)  -> cont TLet rest
                               (var,rest)    -> cont (TVar var) rest
                           consumirBK anidado cl cont s = case s of
                               ('-':('-':cs)) -> consumirBK anidado cl cont $ dropWhile ((/=) '\n') cs
