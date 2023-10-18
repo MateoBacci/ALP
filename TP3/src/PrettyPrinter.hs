@@ -25,7 +25,7 @@ parensIf False = id
 pp :: Int -> [String] -> Term -> Doc
 pp ii vs (Bound k         ) = text (vs !! (ii - k - 1))
 pp _  _  (Free  (Global s)) = text s
-
+pp ii vs Unit               = text "unit"
 pp ii vs (i :@: c         ) = sep
   [ parensIf (isLam i) (pp ii vs i)
   , nest 1 (parensIf (isLam c || isApp c) (pp ii vs c))
@@ -38,11 +38,12 @@ pp ii vs (Lam t c) =
     <> text ". "
     <> pp (ii + 1) vs c
 pp ii vs (Let e1 e2) =
-  text "let"
-    <> pp ii vs e1
-    <> text "in"
-    <> pp ii vs e2
-
+  text "let "
+    <> text (vs !! ii)
+    <> text "="
+    <> pp (ii + 1) vs e1
+    <> text " in "
+    <> pp (ii + 1) vs e2
 
 
 isLam :: Term -> Bool
@@ -58,6 +59,7 @@ printType :: Type -> Doc
 printType EmptyT = text "E"
 printType (FunT t1 t2) =
   sep [parensIf (isFun t1) (printType t1), text "->", printType t2]
+printType UnitT = text "Unit"
 
 
 isFun :: Type -> Bool
@@ -66,10 +68,11 @@ isFun _          = False
 
 fv :: Term -> [String]
 fv (Bound _         ) = []
+fv Unit               = [] 
 fv (Free  (Global n)) = [n]
 fv (t   :@: u       ) = fv t ++ fv u
 fv (Lam _   u       ) = fv u
-fv (Let t u         ) = 
+fv (Let t u         ) = fv t ++ fv u
 
 ---
 printTerm :: Term -> Doc
