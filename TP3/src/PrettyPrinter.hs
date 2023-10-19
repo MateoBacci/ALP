@@ -25,11 +25,20 @@ parensIf False = id
 pp :: Int -> [String] -> Term -> Doc
 pp ii vs (Bound k         ) = text (vs !! (ii - k - 1))
 pp _  _  (Free  (Global s)) = text s
-pp ii vs Unit               = text "unit"
+pp _  _  Unit               = text "unit"
+
+pp ii vs (Pair a b) = 
+  text "("
+    <> pp ii vs a
+    <> text ","
+    <> pp ii vs b
+    <> text ")"
+ 
 pp ii vs (i :@: c         ) = sep
   [ parensIf (isLam i) (pp ii vs i)
   , nest 1 (parensIf (isLam c || isApp c) (pp ii vs c))
   ]
+
 pp ii vs (Lam t c) =
   text "\\"
     <> text (vs !! ii)
@@ -37,15 +46,15 @@ pp ii vs (Lam t c) =
     <> printType t
     <> text ". "
     <> pp (ii + 1) vs c
-pp ii vs (Let e1 e2) =
-  text "let "
+
+pp ii vs (Let a b) =
+  text "let"
     <> text (vs !! ii)
-    <> text "="
-    <> pp (ii + 1) vs e1
+    <> text " = "
+    <> pp (ii + 1) vs a
     <> text " in "
-    <> pp (ii + 1) vs e2
-
-
+    <> pp (ii + 1) vs b
+    
 isLam :: Term -> Bool
 isLam (Lam _ _) = True
 isLam _         = False
@@ -56,10 +65,16 @@ isApp _         = False
 
 -- pretty-printer de tipos
 printType :: Type -> Doc
-printType EmptyT = text "E"
+printType EmptyT        = text "E"
+printType UnitT         = text "Unit"
+printType (PairT t1 t2) =
+  text "("
+  <> printType t1
+  <> text ","
+  <> printType t2
+  <> text ")"
 printType (FunT t1 t2) =
   sep [parensIf (isFun t1) (printType t1), text "->", printType t2]
-printType UnitT = text "Unit"
 
 
 isFun :: Type -> Bool
@@ -68,11 +83,12 @@ isFun _          = False
 
 fv :: Term -> [String]
 fv (Bound _         ) = []
-fv Unit               = [] 
+fv Unit               = []
 fv (Free  (Global n)) = [n]
 fv (t   :@: u       ) = fv t ++ fv u
 fv (Lam _   u       ) = fv u
 fv (Let t u         ) = fv t ++ fv u
+fv (Pair a b        ) = fv a ++ fv b
 
 ---
 printTerm :: Term -> Doc
