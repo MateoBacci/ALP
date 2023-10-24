@@ -21,14 +21,18 @@ conversion :: LamTerm -> Term
 conversion = conversion' []
 
 conversion' :: [String] -> LamTerm -> Term
-conversion' b LUnit          = Unit
-conversion' b (LVar n      ) = maybe (Free (Global n)) Bound (n `elemIndex` b)
-conversion' b (LApp t u    ) = conversion' b t :@: conversion' b u
-conversion' b (LAbs n t  u ) = Lam t (conversion' (n : b) u)
-conversion' b (LLet x e1 e2) = Let (conversion' b e1) (conversion' (x : b) e2)
-conversion' b (LPair e1 e2 ) = Pair (conversion' b e1) (conversion' b e2)  
-conversion' b (LFst p      ) = Fst (conversion' b p)  
-conversion' b (LSnd p      ) = Snd (conversion' b p)  
+conversion' b LUnit           = Unit
+conversion' b (LVar n      )  = maybe (Free (Global n)) Bound (n `elemIndex` b)
+conversion' b (LApp t u    )  = conversion' b t :@: conversion' b u
+conversion' b (LAbs n t  u )  = Lam t (conversion' (n : b) u)
+conversion' b (LLet x e1 e2)  = Let (conversion' b e1) (conversion' (x : b) e2)
+conversion' b (LPair e1 e2 )  = Pair (conversion' b e1) (conversion' b e2)  
+conversion' b (LFst p      )  = Fst (conversion' b p)  
+conversion' b (LSnd p      )  = Snd (conversion' b p)  
+conversion' b LZero           = Zero
+conversion' b (LSuc n      )  = Suc (conversion' b n)
+conversion' b (LRec t1 t2 t3) = Rec (conversion' b t1) (conversion' b t1) (conversion' b t1)
+
 
 -----------------------
 --- eval
@@ -45,7 +49,9 @@ sub i t (Let e1 e2)           = Let (sub i t e1) (sub i t e2)
 sub i t (Pair e1 e2)          = Pair (sub i t e1) (sub i t e2)
 sub i t (Fst p)               = Fst (sub i t p)
 sub i t (Snd p)               = Snd (sub i t p)
-
+sub i t Zero                  = Zero
+sub i t (Suc n)               = Suc (sub i t n)
+sub i t (Rec t1 t2 t3)        = Rec (sub i t t1) (sub i t t2) (sub i t t3)
 
 -- evaluador de términos
 eval :: NameEnv Value Type -> Term -> Value
@@ -66,7 +72,11 @@ eval e (Fst p               ) = case eval e p of
 eval e (Snd p               ) = case eval e p of
                                   (VPair a b) -> b
                                   err         -> err
-
+eval e Zero                   = VNum NZero
+eval e (Suc n               ) = VNum (NSuc (eval e n))
+eval e (Rec t1 t2 Zero      ) = eval e t1
+eval e (Rec t1 t2 (Suc t3)  ) = (VLam T (VLam T ( eval e (Rec t1 t2 t3 ) :@:) t3))  
+eval e (Rec t1 t2 (Suc t3)  ) = (eval e t2) (eval e (Rec t1 t2 t3)) (eval e t3)    
 
 -----------------------
 --- quoting

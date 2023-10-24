@@ -7,4 +7,3 @@ def resto = Y (\f n m . (equal n m) zero ((is0 (resta n m)) n (f (resta n m) m))
 def divs = Y (\f n m. (is0 m) nil ((is0 (resto n m)) (cons m (f n (pred m))) (f n (pred m))))   
 
 def divisores = \n. divs n (pred n) 
-

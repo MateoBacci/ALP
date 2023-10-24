@@ -26,19 +26,16 @@ pp :: Int -> [String] -> Term -> Doc
 pp ii vs (Bound k         ) = text (vs !! (ii - k - 1))
 pp _  _  (Free  (Global s)) = text s
 pp _  _  Unit               = text "unit"
-
 pp ii vs (Pair a b) = 
   text "("
     <> pp ii vs a
     <> text ","
     <> pp ii vs b
     <> text ")"
- 
-pp ii vs (i :@: c         ) = sep
+pp ii vs (i :@: c) = sep
   [ parensIf (isLam i) (pp ii vs i)
   , nest 1 (parensIf (isLam c || isApp c) (pp ii vs c))
   ]
-
 pp ii vs (Lam t c) =
   text "\\"
     <> text (vs !! ii)
@@ -46,15 +43,24 @@ pp ii vs (Lam t c) =
     <> printType t
     <> text ". "
     <> pp (ii + 1) vs c
-
 pp ii vs (Let a b) =
-  text "let"
+  text "let "
     <> text (vs !! ii)
     <> text " = "
     <> pp (ii + 1) vs a
     <> text " in "
     <> pp (ii + 1) vs b
-    
+pp ii vs Zero = text "0"
+pp ii vs (Suc s) =
+  text "suc "
+  <> pp ii vs s
+pp ii vs (Rec t1 t2 t3) =
+  text "R "
+  <> pp ii vs t1 
+  <> pp ii vs t2 
+  <> pp ii vs t3 
+
+
 isLam :: Term -> Bool
 isLam (Lam _ _) = True
 isLam _         = False
@@ -75,6 +81,7 @@ printType (PairT t1 t2) =
   <> text ")"
 printType (FunT t1 t2) =
   sep [parensIf (isFun t1) (printType t1), text "->", printType t2]
+printType NatT         = text "Nat"
 
 
 isFun :: Type -> Bool
@@ -89,7 +96,11 @@ fv (t   :@: u       ) = fv t ++ fv u
 fv (Lam _   u       ) = fv u
 fv (Let t u         ) = fv t ++ fv u
 fv (Pair a b        ) = fv a ++ fv b
-
+fv (Fst a           ) = fv a
+fv (Snd b           ) = fv b
+fv Zero               = []
+fv (Suc t           ) = fv t 
+fv (Rec t1 t2 t3    ) = fv t1 ++ fv t2 ++ fv t3  
 ---
 printTerm :: Term -> Doc
 printTerm t = pp 0 (filter (\v -> not $ elem v (fv t)) vars) t
