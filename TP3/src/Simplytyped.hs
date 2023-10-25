@@ -31,7 +31,7 @@ conversion' b (LFst p      )  = Fst (conversion' b p)
 conversion' b (LSnd p      )  = Snd (conversion' b p)  
 conversion' b LZero           = Zero
 conversion' b (LSuc n      )  = Suc (conversion' b n)
-conversion' b (LRec t1 t2 t3) = Rec (conversion' b t1) (conversion' b t1) (conversion' b t1)
+conversion' b (LRec t1 t2 t3) = Rec (conversion' b t1) (conversion' b t2) (conversion' b t3)
 
 
 -----------------------

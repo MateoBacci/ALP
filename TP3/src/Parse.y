@@ -19,9 +19,8 @@ import Data.Char
     'fst'    { TFst }
     'snd'    { TSnd }
     '0'      { TZero }
-    'Suc'    { TSuc }
-    'R'      { TR }
     '='      { TEquals }
+    'R'      { TR }
     ':'      { TColon }
     '\\'     { TAbs }
     '.'      { TDot }
@@ -36,12 +35,14 @@ import Data.Char
     TYPEUNIT { TTypeUnit }
     TYPENAT  { TTypeNat }
     DEF      { TDef }
+    SUC      { TSuc }
     
 
 %right VAR
 %left '=' 
 %right '->'
 %right '\\' '.' 
+%right LET
 
 %%
 
@@ -50,18 +51,26 @@ Def     :  Defexp                      { $1 }
 Defexp  : DEF VAR '=' Exp              { Def $2 $4 } 
 
 Exp     :: { LamTerm }
-        : '\\' VAR ':' Type '.' Exp   { LAbs $2 $4 $6 }
-        | LET VAR '=' Exp IN Exp      { LLet $2 $4 $6 }
+        : Abs                         { $1 }
+        | Pair                        { $1 }
+        | Value                       { $1 }
+        | 'R' Exp Exp Exp             { LRec $2 $3 $4 }
+        | SUC Exp                     { LSuc $2 }
         | NAbs                        { $1 }
-        | 'unit'                      { LUnit }
-        | '(' Exp ',' Exp ')'         { LPair $2 $4 }
+
+Pair    :: { LamTerm }
+        : '(' Exp ',' Exp ')'         { LPair $2 $4 }
         | 'fst' Exp                   { LFst $2 }
         | 'snd' Exp                   { LSnd $2 }
-        | '0'                         { LZero }
-        | 'Suc' Exp                   { LSuc $2 }
-        | 'R' Exp Exp Exp             { LRec $2 $3 $4 }
 
-        
+Value   :: {LamTerm }
+        : 'unit'                      { LUnit }
+        | '0'                         { LZero }
+
+
+Abs     :: { LamTerm }
+        : '\\' VAR ':' Type '.' Exp   { LAbs $2 $4 $6 }
+        | LET VAR '=' Exp IN Exp      { LLet $2 $4 $6 }
 
 NAbs    :: { LamTerm }
         : NAbs Atom                    { LApp $1 $2 }
