@@ -19,7 +19,7 @@ import Data.Char
     'fst'    { TFst }
     'snd'    { TSnd }
     '0'      { TZero }
-    'suc'    { TSuc }
+    'Suc'    { TSuc }
     'R'      { TR }
     '='      { TEquals }
     ':'      { TColon }
@@ -51,18 +51,16 @@ Defexp  : DEF VAR '=' Exp              { Def $2 $4 }
 
 Exp     :: { LamTerm }
         : '\\' VAR ':' Type '.' Exp   { LAbs $2 $4 $6 }
-        | Let                         { $1 }
+        | LET VAR '=' Exp IN Exp      { LLet $2 $4 $6 }
         | NAbs                        { $1 }
         | 'unit'                      { LUnit }
         | '(' Exp ',' Exp ')'         { LPair $2 $4 }
         | 'fst' Exp                   { LFst $2 }
         | 'snd' Exp                   { LSnd $2 }
         | '0'                         { LZero }
-        | 'suc' Exp                   { LSuc $2 }
+        | 'Suc' Exp                   { LSuc $2 }
         | 'R' Exp Exp Exp             { LRec $2 $3 $4 }
 
-Let     :: { LamTerm }
-        : LET VAR '=' Exp IN Exp      { LLet $2 $4 $6 }
         
 
 NAbs    :: { LamTerm }
@@ -156,13 +154,13 @@ lexer cont s = case s of
                     (')':cs) -> cont TClose cs
                     (':':cs) -> cont TColon cs
                     ('=':cs) -> cont TEquals cs
+                    ('0':cs) -> cont TZero cs
                     unknown -> \line -> Failed $ 
                      "Línea "++(show line)++": No se puede reconocer "++(show $ take 10 unknown)++ "..."
                     where lexVar cs = case span isAlpha cs of
                               ("E",rest)     -> cont TTypeE rest
                               ("Nat",rest)   -> cont TTypeNat rest
-                              ("0",rest)     -> cont TZero rest
-                              ("suc",rest)   -> cont TSuc rest 
+                              ("Suc",rest)   -> cont TSuc rest 
                               ("R",rest)     -> cont TR rest
                               ("Unit", rest) -> cont TTypeUnit rest
                               ("fst", rest)  -> cont TFst rest

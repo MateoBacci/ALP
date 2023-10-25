@@ -73,19 +73,25 @@ eval e (Snd p               ) = case eval e p of
                                   (VPair a b) -> b
                                   err         -> err
 eval e Zero                   = VNum NZero
-eval e (Suc n               ) = VNum (NSuc (eval e n))
+eval e (Suc n               ) = VNum (NSuc (numEval n))
 eval e (Rec t1 t2 Zero      ) = eval e t1
-eval e (Rec t1 t2 (Suc t3)  ) = (VLam T (VLam T ( eval e (Rec t1 t2 t3 ) :@:) t3))  
-eval e (Rec t1 t2 (Suc t3)  ) = (eval e t2) (eval e (Rec t1 t2 t3)) (eval e t3)    
+eval e (Rec t1 t2 (Suc t3)  ) = eval e ((t2 :@: (Rec t1 t2 t3)) :@: t3)
+eval e (Rec t1 t2 t3        ) = eval e (Rec t1 t2 (quote (eval e t3)))
 
+
+numEval :: Term -> NumVal
+numEval Zero    = NZero
+numEval (Suc n) = NSuc (numEval n)  
 -----------------------
 --- quoting
 -----------------------
 
 quote :: Value -> Term
-quote (VUnit)     = Unit
-quote (VLam t f)  = Lam t f
-quote (VPair a b) = Pair (quote a) (quote b)
+quote (VUnit)         = Unit
+quote (VLam t f)      = Lam t f
+quote (VPair a b)     = Pair (quote a) (quote b)
+quote (VNum NZero)    = Zero
+quote (VNum (NSuc n)) = Suc (quote (VNum n))
 
 ----------------------
 --- type checker
@@ -149,4 +155,23 @@ infer' c e (Snd u) = case (infer' c e u) of
                           Right (PairT t1 t2) -> ret t2
                           Right t             -> matchError (PairT t t) t
                           err                 -> err
+infer' c e Zero    = ret NatT
+infer' c e (Suc n) =
+  case infer' c e n of
+    Right NatT -> ret NatT
+    Right t    -> matchError NatT t
+    error      -> error 
+infer' c e (Rec t1 t2 t3) = 
+  case infer' c e t1 of
+    Right t1' ->
+      case infer' c e t2 of
+        Right (FunT t1' NatT) ->
+          case infer' c e t3 of
+            Right NatT -> ret t1'
+            Right t    -> matchError NatT t
+            error      -> error
+        Right (FunT t1' t) -> matchError NatT t
+        Right t            -> matchError (FunT t1' NatT) t
+        error              -> error
+    error     -> error
 ----------------------------------

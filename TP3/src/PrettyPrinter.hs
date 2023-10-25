@@ -52,7 +52,7 @@ pp ii vs (Let a b) =
     <> pp (ii + 1) vs b
 pp ii vs Zero = text "0"
 pp ii vs (Suc s) =
-  text "suc "
+  text "Suc "
   <> pp ii vs s
 pp ii vs (Rec t1 t2 t3) =
   text "R "
