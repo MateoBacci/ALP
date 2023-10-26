@@ -42,44 +42,64 @@ import Data.Char
 %left '=' 
 %right '->'
 %right '\\' '.' 
-%right LET
+%nonassoc 'R'
 
 %%
+
+{-   \-Cálculo simplemente tipado
+  T ::= E
+      | T -> T
+      | Unit
+      | (T, T)
+      | Nat
+
+  t ::= x
+      | \x:T.t
+      | t t
+      | let x = t in t
+      | unit
+      | (t, t)
+      | fst t
+      | snd t
+      | 0
+      | suc t
+      | R t t t
+
+  v ::= \x:T.t
+      | unit
+      | (v, v)
+      | nv
+
+ nv ::= 0
+      | suc nv
+-}
 
 Def     :  Defexp                      { $1 }
         |  Exp	                       { Eval $1 }
 Defexp  : DEF VAR '=' Exp              { Def $2 $4 } 
 
 Exp     :: { LamTerm }
-        : Abs                         { $1 }
-        | Pair                        { $1 }
-        | Value                       { $1 }
-        | 'R' Exp Exp Exp             { LRec $2 $3 $4 }
-        | SUC Exp                     { LSuc $2 }
-        | NAbs                        { $1 }
-
-Pair    :: { LamTerm }
-        : '(' Exp ',' Exp ')'         { LPair $2 $4 }
-        | 'fst' Exp                   { LFst $2 }
-        | 'snd' Exp                   { LSnd $2 }
-
-Value   :: {LamTerm }
-        : 'unit'                      { LUnit }
-        | '0'                         { LZero }
-
-
-Abs     :: { LamTerm }
         : '\\' VAR ':' Type '.' Exp   { LAbs $2 $4 $6 }
         | LET VAR '=' Exp IN Exp      { LLet $2 $4 $6 }
+        | '(' Exp ',' Exp ')'         { LPair $2 $4 }
+        | 'fst' Exp                   { LFst $2 }
+        | 'snd' Exp                   { LSnd $2 }
+        | 'unit'                      { LUnit }
+        | 'R' Exp Exp Exp             { LRec $2 $3 $4 }   -- <- shift/reduce conflict
+        | NValue                      { $1 }
+        | NAbs                        { $1 }
+
+NValue  :: { LamTerm }
+        : '0'                         { LZero }
+        | SUC NValue                  { LSuc $2 }
 
 NAbs    :: { LamTerm }
-        : NAbs Atom                    { LApp $1 $2 }
+        : Atom NAbs                    { LApp $1 $2 }
         | Atom                         { $1 }
 
 Atom    :: { LamTerm }
-        : VAR                          { LVar $1 }  
-        | '(' Exp ')'                  { $2 }
-
+        : VAR                          { LVar $1 }
+        | '(' Exp ')'                  { $2 }           -- <- shift/reduce conflict
 
 Type    : TYPEE                        { EmptyT }
         | TYPEUNIT                     { UnitT }

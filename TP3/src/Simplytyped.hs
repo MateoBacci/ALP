@@ -78,10 +78,10 @@ eval e (Rec t1 t2 Zero      ) = eval e t1
 eval e (Rec t1 t2 (Suc t3)  ) = eval e ((t2 :@: (Rec t1 t2 t3)) :@: t3)
 eval e (Rec t1 t2 t3        ) = eval e (Rec t1 t2 (quote (eval e t3)))
 
-
 numEval :: Term -> NumVal
 numEval Zero    = NZero
 numEval (Suc n) = NSuc (numEval n)  
+
 -----------------------
 --- quoting
 -----------------------
