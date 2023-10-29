@@ -15,9 +15,6 @@ import Data.Char
 %lexer {lexer} {TEOF}
 
 %token
-    'unit'   { TUnit}
-    'fst'    { TFst }
-    'snd'    { TSnd }
     '0'      { TZero }
     '='      { TEquals }
     'R'      { TR }
@@ -29,12 +26,15 @@ import Data.Char
     ')'      { TClose }
     '->'     { TArrow }
     VAR      { TVar $$ }
+    TYPEE    { TTypeE }
+    DEF      { TDef }
     LET      { TLet }
     IN       { TIn }
-    TYPEE    { TTypeE }
     TYPEUNIT { TTypeUnit }
+    UNIT     { TUnit}
+    FST      { TFst }
+    SND      { TSnd }
     TYPENAT  { TTypeNat }
-    DEF      { TDef }
     SUC      { TSuc }
     
 
@@ -42,9 +42,7 @@ import Data.Char
 %left '=' 
 %right '->'
 %right '\\' '.' 
-%nonassoc 'R'
 
-%%
 
 {-   \-Cálculo simplemente tipado
   T ::= E
@@ -72,26 +70,71 @@ import Data.Char
 
  nv ::= 0
       | suc nv
+
+
+      |
+      |
+      |
+  Corrigiendo
+  ambiguedad
+      |
+      |
+      |
+      v
+
+( mayor precedencia -> ultimo en parsear -> primero en evaluar )
+( por ej: + < *)
+
+Tiene que tener este orden:
+     
+     abs let  <  fst snd  <  R  <  suc  <   app   <   x ()   <   nv
+
+
+Exp  ::= \x:T.Exp
+       | let x = Exp in Exp
+       | Pair
+       | R Exp Exp Exp
+       | Suc Exp
+       | NAbs
+
+Pair ::= fst Pair
+       | snd Pair
+       | (Exp, Exp)
+
+NAbs ::= NAbs Atom
+       | Atom
+
+Atom ::= x
+       | unit
+       | nv
+       | ( Exp )  
+
+nv  ::= 0
+      | suc nv
 -}
+
+%right FST SND
+%nonassoc 'R'
+%right SUC
+
+%% 
 
 Def     :  Defexp                      { $1 }
         |  Exp	                       { Eval $1 }
 Defexp  : DEF VAR '=' Exp              { Def $2 $4 } 
 
 Exp     :: { LamTerm }
-        : '\\' VAR ':' Type '.' Exp   { LAbs $2 $4 $6 }
-        | LET VAR '=' Exp IN Exp      { LLet $2 $4 $6 }
-        | '(' Exp ',' Exp ')'         { LPair $2 $4 }
-        | 'fst' Exp                   { LFst $2 }
-        | 'snd' Exp                   { LSnd $2 }
-        | 'unit'                      { LUnit }
-        | 'R' Exp Exp Exp             { LRec $2 $3 $4 }   -- <- shift/reduce conflict
-        | NValue                      { $1 }
-        | NAbs                        { $1 }
+        : '\\' VAR ':' Type '.' Exp    { LAbs $2 $4 $6 }
+        | LET VAR '=' Exp IN Exp       { LLet $2 $4 $6 }
+        | Pair                         { $1 }
+        | 'R' Exp Exp Exp              { LRec $2 $3 $4 }   -- <- shift/reduce conflict
+        | SUC Exp                      { LSuc $2 }
+        | NAbs                         { $1 }
 
-NValue  :: { LamTerm }
-        : '0'                         { LZero }
-        | SUC NValue                  { LSuc $2 }
+Pair    :: { LamTerm }
+        : FST Pair                     { LFst $2 }
+        | SND Pair                     { LSnd $2 }
+        | '(' Exp ',' Exp ')'          { LPair $2 $4 }
 
 NAbs    :: { LamTerm }
         : Atom NAbs                    { LApp $1 $2 }
@@ -99,7 +142,13 @@ NAbs    :: { LamTerm }
 
 Atom    :: { LamTerm }
         : VAR                          { LVar $1 }
-        | '(' Exp ')'                  { $2 }           -- <- shift/reduce conflict
+        | UNIT                         { LUnit }
+        | NValue                       { $1 }
+        | '(' Exp ')'                  { $2 }             -- <- shift/reduce conflict
+
+NValue  :: { LamTerm }
+        : '0'                          { LZero }
+        | SUC NValue                   { LSuc $2 }
 
 Type    : TYPEE                        { EmptyT }
         | TYPEUNIT                     { UnitT }
