@@ -38,13 +38,8 @@ import Data.Char
     SUC      { TSuc }
     
 
-%right VAR
-%left '=' 
-%right '->'
-%right '\\' '.' 
 
-
-{-   \-Cálculo simplemente tipado
+{-   Cálculo lambda simplemente tipado
   T ::= E
       | T -> T
       | Unit
@@ -72,22 +67,22 @@ import Data.Char
       | suc nv
 
 
-      |
-      |
-      |
-  Corrigiendo
-  ambiguedad
-      |
-      |
-      |
-      v
+                     |
+                     |
+                     |
+                 Corrigiendo
+                 ambiguedad
+                     |
+                     |
+                     |
+                     v
 
 ( mayor precedencia -> ultimo en parsear -> primero en evaluar )
 ( por ej: + < *)
 
 Tiene que tener este orden:
      
-     abs let  <  fst snd  <  R  <  suc  <   app   <   x ()   <   nv
+     abs let  <  fst snd  <  R  <  suc  <   app   <   x () 0 unit
 
 
 Exp  ::= \x:T.Exp
@@ -106,16 +101,15 @@ NAbs ::= NAbs Atom
 
 Atom ::= x
        | unit
-       | nv
+       | 0
        | ( Exp )  
 
-nv  ::= 0
-      | suc nv
 -}
 
-%right FST SND
-%nonassoc 'R'
-%right SUC
+%right VAR
+%left '='
+%right '->'
+%right '\\' '.'
 
 %% 
 
@@ -127,7 +121,7 @@ Exp     :: { LamTerm }
         : '\\' VAR ':' Type '.' Exp    { LAbs $2 $4 $6 }
         | LET VAR '=' Exp IN Exp       { LLet $2 $4 $6 }
         | Pair                         { $1 }
-        | 'R' Exp Exp Exp              { LRec $2 $3 $4 }   -- <- shift/reduce conflict
+        | 'R' Atom Atom Atom            { LRec $2 $3 $4 }   -- <- shift/reduce conflict
         | SUC Exp                      { LSuc $2 }
         | NAbs                         { $1 }
 
@@ -139,16 +133,13 @@ Pair    :: { LamTerm }
 NAbs    :: { LamTerm }
         : Atom NAbs                    { LApp $1 $2 }
         | Atom                         { $1 }
+        
 
 Atom    :: { LamTerm }
         : VAR                          { LVar $1 }
         | UNIT                         { LUnit }
-        | NValue                       { $1 }
+        | '0'                          { LZero }
         | '(' Exp ')'                  { $2 }             -- <- shift/reduce conflict
-
-NValue  :: { LamTerm }
-        : '0'                          { LZero }
-        | SUC NValue                   { LSuc $2 }
 
 Type    : TYPEE                        { EmptyT }
         | TYPEUNIT                     { UnitT }
