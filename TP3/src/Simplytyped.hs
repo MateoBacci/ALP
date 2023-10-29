@@ -165,13 +165,15 @@ infer' c e (Rec t1 t2 t3) =
   case infer' c e t1 of
     Right t1' ->
       case infer' c e t2 of
-        Right (FunT t1' NatT) ->
-          case infer' c e t3 of
-            Right NatT -> ret t1'
-            Right t    -> matchError NatT t
-            error      -> error
-        Right (FunT t1' t) -> matchError NatT t
-        Right t            -> matchError (FunT t1' NatT) t
+        Right (FunT t1' (FunT NatT t2')) -> 
+          case t1' == t2' of
+            False -> matchError t1' t2'
+            _  -> case infer' c e t3 of
+                        Right NatT -> ret t1'
+                        Right t    -> matchError NatT t
+                        error      -> error 
+          
+        Right t            -> matchError (FunT t1' (FunT NatT t1')) t
         error              -> error
     error     -> error
 ----------------------------------
