@@ -23,15 +23,21 @@ parensIf False = id
 -- pretty-printer de términos
 
 pp :: Int -> [String] -> Term -> Doc
-pp ii vs (Bound k         ) = text (vs !! (ii - k - 1))
+pp ii vs (Bound k         ) = text (vs !! (ii - k - 1)) <> text " "
 pp _  _  (Free  (Global s)) = text s
-pp _  _  Unit               = text "unit"
+pp _  _  Unit               = text "unit "
 pp ii vs (Pair a b) = 
   text "("
     <> pp ii vs a
-    <> text ","
+    <> text ", "
     <> pp ii vs b
     <> text ")"
+pp ii vs (Fst a) =
+  text "fst "
+    <> pp ii vs a
+pp ii vs (Snd a) =
+  text "snd "
+    <> pp ii vs a
 pp ii vs (i :@: c) = sep
   [ parensIf (isLam i) (pp ii vs i)
   , nest 1 (parensIf (isLam c || isApp c) (pp ii vs c))
@@ -50,9 +56,9 @@ pp ii vs (Let a b) =
     <> pp (ii + 1) vs a
     <> text " in "
     <> pp (ii + 1) vs b
-pp ii vs Zero = text "0"
+pp ii vs Zero = text "0 "
 pp ii vs (Suc s) =
-  text "Suc "
+  text "suc "
   <> pp ii vs s
 pp ii vs (Rec t1 t2 t3) =
   text "R "

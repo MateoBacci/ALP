@@ -16,8 +16,9 @@ import Data.Char
 
 %token
     '0'      { TZero }
+    'unit'   { TUnit}
     '='      { TEquals }
-    'R'      { TR }
+    R        { TR }
     ':'      { TColon }
     '\\'     { TAbs }
     '.'      { TDot }
@@ -31,7 +32,6 @@ import Data.Char
     LET      { TLet }
     IN       { TIn }
     TYPEUNIT { TTypeUnit }
-    UNIT     { TUnit}
     FST      { TFst }
     SND      { TSnd }
     TYPENAT  { TTypeNat }
@@ -39,77 +39,24 @@ import Data.Char
     
 
 
-{-   Cálculo lambda simplemente tipado
-  T ::= E
-      | T -> T
-      | Unit
-      | (T, T)
-      | Nat
-
-  t ::= x
-      | \x:T.t
-      | t t
-      | let x = t in t
-      | unit
-      | (t, t)
-      | fst t
-      | snd t
-      | 0
-      | suc t
-      | R t t t
-
-  v ::= \x:T.t
-      | unit
-      | (v, v)
-      | nv
-
- nv ::= 0
-      | suc nv
-
-
-                     |
-                     |
-                     |
-                 Corrigiendo
-                 ambiguedad
-                     |
-                     |
-                     |
-                     v
+{- 
 
 ( mayor precedencia -> ultimo en parsear -> primero en evaluar )
-( por ej: + < *)
 
 Tiene que tener este orden:
      
      abs let  <  fst snd  <  R  <  suc  <   app   <   x () 0 unit
-
-
-Exp  ::= \x:T.Exp
-       | let x = Exp in Exp
-       | Pair
-       | R Exp Exp Exp
-       | Suc Exp
-       | NAbs
-
-Pair ::= fst Pair
-       | snd Pair
-       | (Exp, Exp)
-
-NAbs ::= NAbs Atom
-       | Atom
-
-Atom ::= x
-       | unit
-       | 0
-       | ( Exp )  
 
 -}
 
 %right VAR
 %left '='
 %right '->'
-%right '\\' '.'
+%right '\\' '.' LET IN
+%right FST SND
+%right R
+%right SUC
+
 
 %% 
 
@@ -120,26 +67,22 @@ Defexp  : DEF VAR '=' Exp              { Def $2 $4 }
 Exp     :: { LamTerm }
         : '\\' VAR ':' Type '.' Exp    { LAbs $2 $4 $6 }
         | LET VAR '=' Exp IN Exp       { LLet $2 $4 $6 }
-        | Pair                         { $1 }
-        | 'R' Atom Atom Atom            { LRec $2 $3 $4 }   -- <- shift/reduce conflict
-        | SUC Exp                      { LSuc $2 }
+        | FST Atom                     { LFst $2 }
+        | SND Atom                     { LSnd $2 }
+        | R Atom Atom Atom             { LRec $2 $3 $4 }  
+        | SUC Atom                     { LSuc $2 }
         | NAbs                         { $1 }
 
-Pair    :: { LamTerm }
-        : FST Pair                     { LFst $2 }
-        | SND Pair                     { LSnd $2 }
-        | '(' Exp ',' Exp ')'          { LPair $2 $4 }
-
 NAbs    :: { LamTerm }
-        : Atom NAbs                    { LApp $1 $2 }
+        : NAbs Atom                    { LApp $1 $2 }
         | Atom                         { $1 }
-        
 
 Atom    :: { LamTerm }
         : VAR                          { LVar $1 }
-        | UNIT                         { LUnit }
+        | 'unit'                       { LUnit }
         | '0'                          { LZero }
-        | '(' Exp ')'                  { $2 }             -- <- shift/reduce conflict
+        | '(' Exp ')'                  { $2 }             
+        | '(' Exp ',' Exp ')'          { LPair $2 $4 }
 
 Type    : TYPEE                        { EmptyT }
         | TYPEUNIT                     { UnitT }
@@ -229,7 +172,7 @@ lexer cont s = case s of
                     where lexVar cs = case span isAlpha cs of
                               ("E",rest)     -> cont TTypeE rest
                               ("Nat",rest)   -> cont TTypeNat rest
-                              ("Suc",rest)   -> cont TSuc rest 
+                              ("suc",rest)   -> cont TSuc rest 
                               ("R",rest)     -> cont TR rest
                               ("Unit", rest) -> cont TTypeUnit rest
                               ("fst", rest)  -> cont TFst rest
