@@ -18,7 +18,6 @@ import Data.Char
     '0'      { TZero }
     'unit'   { TUnit}
     '='      { TEquals }
-    R        { TR }
     ':'      { TColon }
     '\\'     { TAbs }
     '.'      { TDot }
@@ -26,6 +25,7 @@ import Data.Char
     '('      { TOpen }
     ')'      { TClose }
     '->'     { TArrow }
+    R        { TR }
     VAR      { TVar $$ }
     TYPEE    { TTypeE }
     DEF      { TDef }
@@ -39,15 +39,13 @@ import Data.Char
     
 
 
+
+
 {- 
-
-( mayor precedencia -> ultimo en parsear -> primero en evaluar )
-
-Tiene que tener este orden:
-     
+ Orden precedencia:     
      abs let  <  fst snd  <  R  <  suc  <   app   <   x () 0 unit
-
 -}
+
 
 %right VAR
 %left '='
